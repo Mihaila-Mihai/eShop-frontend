@@ -6,7 +6,7 @@ import {HttpClient} from "@angular/common/http";
   providedIn: "root"
 })
 export class RegisterService {
-  private URI = 'http://localhost:8080/eShop/customer';
+  private URI = 'http://localhost:8050/eShop/register';
   private body = {
     "firstName": "",
     "lastName": "Mihaila",

@@ -1,0 +1,7 @@
+<section>
+  <div *ngIf="products$ | async as products">
+    <div *ngFor="let product of products._embedded.productModels">
+      <app-product-card [product]="product"></app-product-card>
+    </div>
+  </div>
+</section>
