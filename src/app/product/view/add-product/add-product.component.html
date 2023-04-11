@@ -1,0 +1,45 @@
+<app-top-bar></app-top-bar>
+<section class="h-100 mt-5">
+  <div class="wrapper h-100">
+    <div class="d-flex flex-column align-items-center">
+      <h4 class="mb-5"> Adaugă un produs </h4>
+      <form class="login-form d-flex flex-column align-items-center mb-5" [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="d-flex flex-column">
+          <p>
+            <mat-form-field appearance="fill">
+              <mat-label> Nume </mat-label>
+
+              <input matInput formControlName="displayName" type="text">
+
+              <mat-error *ngIf="displayName?.touched && displayName?.errors?.['required']"> Câmp obligatoriu </mat-error>
+            </mat-form-field>
+          </p>
+
+          <p>
+            <mat-form-field appearance="fill">
+              <mat-label> Pret </mat-label>
+
+              <input matInput formControlName="price" type="text">
+
+              <mat-error *ngIf="price?.touched && price?.errors"> Câmp obligatoriu </mat-error>
+            </mat-form-field>
+
+          </p>
+
+          <p>
+            <mat-form-field appearance="fill">
+              <mat-label> Stoc </mat-label>
+
+              <input matInput formControlName="stock" type="text">
+
+              <mat-error *ngIf="stock?.touched && stock?.errors"> Câmp obligatoriu </mat-error>
+            </mat-form-field>
+
+          </p>
+        </div>
+
+        <button mat-button class="mat-button text-bg-primary border-0" type="submit"> Salvează produsul </button>
+      </form>
+    </div>
+  </div>
+</section>

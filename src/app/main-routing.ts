@@ -1,10 +1,12 @@
 import {Route, Routes} from "@angular/router";
+import {ProductComponent} from "./product/view/product-page/product.component";
+import {AddProductComponent} from "./product/view/add-product/add-product.component";
 
 export const routes: Route[] = [
   {
     path: '',
     pathMatch: "full",
-    redirectTo: 'home'
+    redirectTo: 'products'
   },
   {
     path: 'home',
@@ -16,6 +18,23 @@ export const routes: Route[] = [
   },
   {
     path: 'products',
-    loadComponent: () => import('./category/view/category.component').then((m) => m.CategoryComponent)
+    loadComponent: () => import('./category/view/category.component').then((m) => m.CategoryComponent),
+  },
+  {
+    path: 'product',
+    children: [
+      {
+        path: '',
+        loadComponent: () => import('./product/view/add-product/add-product.component').then((m) => m.AddProductComponent)
+      },
+      {
+        path: ':id',
+        loadComponent: () => import('./product/view/product-page/product.component').then((m) => m.ProductComponent)
+      },
+    ]
+  },
+  {
+    path: 'login',
+    loadComponent: () => import('./login/view/login.component').then((m) => m.LoginComponent)
   }
 ];

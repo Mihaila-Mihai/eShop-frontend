@@ -1,2 +1,59 @@
+<section class="h-100">
+  <div class="wrapper h-100">
+    <div class="d-flex flex-column align-items-center">
+      <h4 class="mb-5"> Înregistrare </h4>
+      <form class="login-form d-flex flex-column align-items-center mb-5" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        <div class="d-flex flex-column">
+          <p>
+            <mat-form-field appearance="fill">
+              <mat-label> Email</mat-label>
 
-<h1>test</h1>
+              <input matInput formControlName="email" type="email">
+
+              <mat-error *ngIf="email?.touched && email?.errors?.['required']"> Câmp obligatoriu </mat-error>
+              <mat-error *ngIf="email?.touched && email?.errors?.['email']"> Email invalid </mat-error>
+            </mat-form-field>
+          </p>
+
+          <p>
+            <mat-form-field appearance="fill">
+              <mat-label> Parola</mat-label>
+
+              <input matInput formControlName="password" type="password">
+
+              <mat-error *ngIf="password?.touched && password?.errors"> Câmp obligatoriu </mat-error>
+            </mat-form-field>
+
+          </p>
+
+          <p>
+            <mat-form-field appearance="fill">
+              <mat-label> Prenume </mat-label>
+
+              <input matInput formControlName="firstName" type="text">
+
+              <mat-error *ngIf="firstName?.touched && firstName?.errors"> Câmp obligatoriu </mat-error>
+            </mat-form-field>
+
+          </p>
+
+          <p>
+            <mat-form-field appearance="fill">
+              <mat-label> Nume </mat-label>
+
+              <input matInput formControlName="lastName" type="text">
+
+              <mat-error *ngIf="lastName?.touched && lastName?.errors"> Câmp obligatoriu </mat-error>
+            </mat-form-field>
+
+          </p>
+        </div>
+
+        <button mat-button class="mat-button text-bg-primary border-0" type="submit"> Autentifică-te </button>
+      </form>
+
+      <p class="no-account m-0"> Ai deja un cont? <span class="ms-2" routerLink="/login"> Autentifică-te </span> </p>
+    </div>
+  </div>
+
+</section>

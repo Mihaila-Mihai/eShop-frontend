@@ -1,16 +1,29 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {ProductModel} from "../../content/model";
+import {Router, RouterLink} from "@angular/router";
 
 @Component({
   selector: 'app-product-card',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './product-card.component.html',
   styleUrls: ['./product-card.component.scss']
 })
-export class ProductCardComponent {
+export class ProductCardComponent implements OnInit {
   @Input()
   public product: ProductModel | undefined;
+  public stockState: string | undefined;
 
+  constructor(private router: Router) {
+  }
+
+  ngOnInit(): void {
+    this.stockState = this.product?.stock && this.product.stock > 0 ? "În stoc" : "Stoc epuizat";
+  }
+
+
+  navigate() {
+    this.router.navigate(['product', this.product?.productId])
+  }
 }

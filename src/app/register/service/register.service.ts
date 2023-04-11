@@ -1,6 +1,14 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
+import {Router} from "@angular/router";
 
+
+export interface Customer {
+  email: string,
+  firstName: string,
+  lastName: string,
+  password: string
+}
 
 @Injectable({
   providedIn: "root"
@@ -12,11 +20,12 @@ export class RegisterService {
     "lastName": "Mihaila",
     "email": "mihai@m.ron"
   };
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private router: Router) {
   }
 
-  public register() {
-    console.log('test');
-    this.http.post(this.URI, this.body).subscribe();
+  public register(payload: Customer) {
+    this.http.post<any>(this.URI, payload).subscribe(res => {
+      this.router.navigate(['login']);
+    });
   }
 }

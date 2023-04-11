@@ -17,12 +17,14 @@ export interface ProductsResponse {
       "href": string
     }
   },
-  "page": {
-    "size": number,
-    "totalElements": number,
-    "totalPages": number,
-    "number": number
-  }
+  "page": Page
+}
+
+export interface Page {
+  "size": number,
+  "totalElements": number,
+  "totalPages": number,
+  "number": number
 }
 
 export interface ProductModel {

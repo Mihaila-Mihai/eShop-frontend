@@ -1,0 +1,30 @@
+.login-form {
+  //max-width: 1100px;
+  //margin-inline: auto;
+}
+
+:host {
+  height: 100vh;
+  display: block;
+}
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+h4 {
+  font-size: 1.5rem;
+}
+
+mat-form-field {
+  width: 300px;
+}
+
+.no-account {
+  span {
+    color: var(--bs-primary);
+    cursor: pointer;
+  }
+}

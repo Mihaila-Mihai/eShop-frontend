@@ -1,0 +1,29 @@
+.stock-state {
+  font-weight: bold;
+}
+
+.display-name {
+  color: black;
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+
+.product-image {
+  max-width: 50%;
+}
+
+.details-button {
+  max-width: 140px;
+}
+
+.wrapper {
+  &:hover {
+    box-shadow: 7px -7px 12px -3px #48abe0;
+  }
+  transition: all 0.2s ease-in;
+}
+
+.price {
+  font-size: 1.5rem;
+  font-weight: bold;
+}

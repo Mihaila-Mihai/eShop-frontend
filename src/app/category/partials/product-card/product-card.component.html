@@ -1,1 +1,24 @@
-<p>{{product?.displayName}}</p>
+<section class="wrapper">
+  <div class="product-container container bg-white rounded-2 py-3">
+    <div class="row">
+      <div class="product-image-container col-12 d-flex justify-content-center mb-3">
+        <img class="product-image"
+             src="https://lcdn.altex.ro/resize/media/catalog/product/i/p/2bd48d28d1c32adea0e55139a4e6434a/iphone_14_blue-1_d611427e.jpg"
+             alt="product-image">
+      </div>
+    </div>
+    <div class="row">
+      <span class="display-name col-12 text-center">{{product?.displayName}}</span>
+    </div>
+    <div class="row">
+      <span class="price col-12 text-center my-3">{{product?.price}}$</span>
+    </div>
+    <div class="row mb-4">
+      <span class="stock-state col-12 text-center"
+            [ngClass]="{'color-green': stockState, 'color-red': !stockState}">{{stockState}}</span>
+    </div>
+    <div class="row mb-3 d-flex justify-content-center">
+      <button class="details-button mat-button border-0 text-bg-primary" (click)="navigate()">detalii produs</button>
+    </div>
+  </div>
+</section>

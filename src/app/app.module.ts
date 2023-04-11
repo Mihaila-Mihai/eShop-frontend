@@ -6,6 +6,7 @@ import {HttpClientModule} from "@angular/common/http";
 import {RouterModule} from "@angular/router";
 import {routes} from "./main-routing";
 import {TopBarComponent} from "./top-bar/view/top-bar.component";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import {TopBarComponent} from "./top-bar/view/top-bar.component";
     HttpClientModule,
     RouterModule,
     RouterModule.forRoot(routes),
-    TopBarComponent
+    TopBarComponent,
+    BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
