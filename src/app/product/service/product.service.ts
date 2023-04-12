@@ -8,11 +8,27 @@ export interface ProductInfo {
   stock: number
 }
 
-export interface ProductResponse {
+export interface ProductPostResponse {
   displayName: string,
   price: number,
   productId: number,
   stock: number
+}
+
+export interface ProductGetResponse {
+  productId: number,
+  displayName: string
+  price: number
+  stock: number
+  details?: {
+    productVariationId: number
+    color?: string
+    storageCapacity?: string
+    brand?: string
+    otherColors?: string
+    rating?: number
+  }
+
 }
 
 const URL = `${baseURL}/product`
@@ -25,6 +41,10 @@ export class ProductService {
   }
 
   public addProduct(payload: ProductInfo) {
-    return this.http.post<ProductResponse>(URL, payload);
+    return this.http.post<ProductPostResponse>(URL, payload);
+  }
+
+  public getProduct(id: string) {
+    return this.http.get<ProductGetResponse>(`${URL}/${id}`);
   }
 }

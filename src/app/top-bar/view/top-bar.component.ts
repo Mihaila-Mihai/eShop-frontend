@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {RouterLink} from "@angular/router";
+import {Router, RouterLink} from "@angular/router";
 
 @Component({
   selector: 'app-top-bar',
@@ -12,4 +12,10 @@ import {RouterLink} from "@angular/router";
 export class TopBarComponent {
   public authenticated = false;
 
+  constructor(private router: Router) {
+  }
+
+  goToHome() {
+    this.router.navigate(['/']);
+  }
 }

@@ -1,1 +1,48 @@
-<p>product works!</p>
+<app-top-bar></app-top-bar>
+<section>
+  <div class="container mt-5 bg-white p-5" *ngIf="product$ | async as product">
+    <div class="row">
+      <div class="col-4">
+        <div class="image-container">
+          <img class="product-image"
+               src="https://lcdn.altex.ro/resize/media/catalog/product/i/p/2bd48d28d1c32adea0e55139a4e6434a/iphone_14_blue-1_d611427e.jpg"
+               alt="product-image">
+        </div>
+      </div>
+
+      <div class="col-5 pt-5">
+        <div class="details ps-5">
+          <div class="general-details">
+            <h3 class="bi-phone-fill text-secondary"> {{product?.details?.brand}} </h3>
+            <h2 class="mb-3">
+              {{product.displayName}}<span class="color-black"> | </span> {{product?.details?.storageCapacity}} <span class="color-black"> | </span> {{product?.details?.color}}
+            </h2>
+            <div class="d-flex mb-4">
+              <app-color-dot [selected]="true" [color]="product?.details?.color"></app-color-dot>
+              <app-color-dot class="ms-3" [color]="product?.details?.otherColors"></app-color-dot>
+            </div>
+            <div class="d-flex justify-content-between mb-5">
+              <span
+                [ngClass]="{'color-green bi-check': product.stock | stockPipe, 'color-red bi-x': !(product.stock | stockPipe)}">
+                {{product.stock | stockPipe }}
+              </span>
+              <span class="bi-calendar-check-fill text-secondary pe-3"> Livrare în 1-3 zile lucrătoare </span>
+            </div>
+            <div class="d-flex justify-content-center" *ngIf="product | rating as rating">
+              <span [class.me-1]="!last" class="bi-star-fill text-primary"
+                    *ngFor="let i of rating; let last=last"></span>
+              <span class="ms-1 bi-star-half text-primary"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-3 d-flex align-items-center">
+        <div class="price-zone d-flex flex-column justify-content-around">
+          <h1> {{product.price}}$ </h1>
+          <button mat-button class="mat-button text-bg-primary border-0" (click)="addToCart()">Adauă în coș</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

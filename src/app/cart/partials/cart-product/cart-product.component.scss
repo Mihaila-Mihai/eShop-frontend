@@ -1,0 +1,16 @@
+
+.image-container {
+  .product-image {
+    max-width: 100px;
+    cursor: pointer;
+  }
+}
+
+.price {
+  text-align: end;
+}
+
+section > div {
+  border-radius: 20px;
+  box-shadow: 0 0 1px 1px black;
+}

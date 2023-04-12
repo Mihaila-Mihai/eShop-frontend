@@ -1,0 +1,21 @@
+:host {
+  width: 100%;
+  display: block;
+}
+
+.product-image {
+  max-width: 350px;
+}
+
+.price-zone {
+  h1 {
+    font-weight: bold;
+  }
+  height: fit-content;
+  width: 100%;
+  border: 1px lightblue solid;
+  padding: 1rem;
+  border-radius: 20px;
+  box-shadow: 0 0 10px lightblue;
+  text-align: center;
+}

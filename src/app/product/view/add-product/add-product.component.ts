@@ -6,7 +6,7 @@ import {MatInputModule} from "@angular/material/input";
 import {MatButtonModule} from "@angular/material/button";
 import {Router, RouterLink} from "@angular/router";
 import {TopBarComponent} from "../../../top-bar/view/top-bar.component";
-import {ProductInfo, ProductResponse, ProductService} from "../../service/product.service";
+import {ProductInfo, ProductPostResponse, ProductService} from "../../service/product.service";
 
 @Component({
   selector: 'app-add-product',
@@ -43,7 +43,7 @@ export class AddProductComponent {
       price: this.price?.value,
       stock: this.stock?.value
     }
-    this.productService.addProduct(productInfo).subscribe((res: ProductResponse) => {
+    this.productService.addProduct(productInfo).subscribe((res: ProductPostResponse) => {
       // console.log(res);
       this.router.navigate(['product', res.productId])
     });

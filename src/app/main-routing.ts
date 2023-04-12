@@ -36,5 +36,9 @@ export const routes: Route[] = [
   {
     path: 'login',
     loadComponent: () => import('./login/view/login.component').then((m) => m.LoginComponent)
+  },
+  {
+    path: 'cos',
+    loadComponent: () => import('./cart/view/cart.component').then((m) => m.CartComponent)
   }
 ];

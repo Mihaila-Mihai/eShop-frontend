@@ -1,0 +1,17 @@
+<section>
+  <div class="container p-2 my-3">
+    <div class="row d-flex align-items-center">
+      <div class="col-3 image-container d-flex justify-content-center">
+        <img class="product-image"
+             src="https://lcdn.altex.ro/resize/media/catalog/product/i/p/2bd48d28d1c32adea0e55139a4e6434a/iphone_14_blue-1_d611427e.jpg"
+             alt="product-image"
+             (click)="goToProduct()">
+      </div>
+      <div class="col-6 ps-0">
+        <h3 class="m-0">{{product?.displayName}} | {{product?.details?.storageCapacity}}
+          | {{product?.details?.color}}</h3>
+      </div>
+      <div class="price col-3"> {{product?.price}}$</div>
+    </div>
+  </div>
+</section>
