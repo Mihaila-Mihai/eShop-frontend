@@ -1,0 +1,16 @@
+section {
+  flex-grow: 1;
+  h1 {
+    font-weight: bold;
+  }
+}
+
+:host {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+span {
+  cursor: pointer;
+}

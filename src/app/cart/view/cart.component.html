@@ -11,7 +11,7 @@
       <div class="total-price flex-column bg-white rounded-2 col-4 d-flex justify-content-between p-4">
         <div class="price-zone d-flex flex-column justify-content-around mb-5">
           <h1> Pret total: {{cart.totalPrice}}$  </h1>
-          <button mat-button class="mat-button text-bg-primary border-0">Plasează comanda</button>
+          <button mat-button class="mat-button text-bg-primary border-0" (click)="placeOrder()">Plasează comanda</button>
         </div>
 
         <div *ngIf="cart?.voucher; else addVoucher" class="voucher-zone d-flex flex-column">
@@ -23,7 +23,7 @@
               </div>
 
               <div>
-                <h3> {{cart?.voucher?.name}} </h3>
+                <h3> {{cart?.voucher?.voucherCode}} </h3>
                 <h3> {{cart?.voucher?.value}} </h3>
               </div>
             </div>

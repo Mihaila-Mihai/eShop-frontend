@@ -1,0 +1,40 @@
+.wrapper {
+  width: 700px;
+
+  ::ng-deep {
+    .mat-expansion-panel-header {
+      height: 60px;
+    }
+
+    .mat-expansion-panel {
+      margin-top: 0;
+      margin-bottom: 20px;
+    }
+
+    .mat-expansion-panel-body {
+      padding: 0;
+    }
+  }
+}
+
+.image-container {
+  .product-image {
+    max-width: 60px;
+    cursor: pointer;
+  }
+}
+
+.price {
+  text-align: end;
+}
+
+.order-item {
+  border-bottom: 1px solid lightgray;
+
+  &.last {
+    margin-bottom: 0;
+    border: 0;
+  }
+}
+
+

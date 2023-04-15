@@ -1,0 +1,14 @@
+<app-top-bar></app-top-bar>
+<section class="wrapper d-flex align-items-center">
+  <div *ngIf="orderId$ | async as orderId" class="d-flex flex-column align-items-center">
+    <div class="d-flex align-items-center mb-3">
+      <h1 class="m-0 me-3"> Comanda cu numărul {{orderId}} a fost înregistrată cu succes! </h1>
+      <i class="bi-emoji-smile"></i>
+    </div>
+
+    <div class="mb-3"> Poți vedea evoluția acesteia în <span class="text-primary" routerLink="/comenzile-mele"> comenzile mele</span>.</div>
+
+
+    <button mat-button class="mat-button text-bg-primary" routerLink=""> Continuă cumpărăturile </button>
+  </div>
+</section>

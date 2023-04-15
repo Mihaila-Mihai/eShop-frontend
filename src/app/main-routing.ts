@@ -25,12 +25,17 @@ export const routes: Route[] = [
     children: [
       {
         path: '',
+        redirectTo: 'add',
+        pathMatch: "full",
+      },
+      {
+        path: 'add',
         loadComponent: () => import('./product/view/add-product/add-product.component').then((m) => m.AddProductComponent)
       },
       {
         path: ':id',
         loadComponent: () => import('./product/view/product-page/product.component').then((m) => m.ProductComponent)
-      },
+      }
     ]
   },
   {
@@ -40,5 +45,13 @@ export const routes: Route[] = [
   {
     path: 'cos',
     loadComponent: () => import('./cart/view/cart.component').then((m) => m.CartComponent)
+  },
+  {
+    path: 'comanda-confirmata/:orderId',
+    loadComponent: () => import('./thank-you/view/thank-you/thank-you.component').then((m) => m.ThankYouComponent)
+  },
+  {
+    path: 'comenzile-mele',
+    loadComponent: () => import('./orders/view/orders/orders.component').then((m) => m.OrdersComponent)
   }
 ];

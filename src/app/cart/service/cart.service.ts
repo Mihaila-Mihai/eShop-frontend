@@ -16,7 +16,7 @@ export interface CartProduct {
 export interface CartGetResponse {
   totalPrice: number,
   voucher: {
-    name: string,
+    voucherCode: string,
     value: number,
     active: boolean
   },
@@ -38,6 +38,17 @@ export class CartService {
     return this.http.post<any>(`${baseURL}/cart`, {
       customerId: 1,
       productId: 1,
+    });
+  }
+
+  public placeOrder() {
+    return this.http.post(`${baseURL}/1/checkout`, "");
+  }
+
+  public applyVoucher(voucherCode: string) {
+    return this.http.post(`${baseURL}/cart/voucher`, {
+      customerId: '1',
+      voucherCode: voucherCode
     });
   }
 

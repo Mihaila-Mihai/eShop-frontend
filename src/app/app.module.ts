@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
-import {HttpClientModule} from "@angular/common/http";
+import {HttpClientModule, HttpClientXsrfModule} from "@angular/common/http";
 import {RouterModule} from "@angular/router";
 import {routes} from "./main-routing";
 import {TopBarComponent} from "./top-bar/view/top-bar.component";
@@ -19,6 +19,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     RouterModule.forRoot(routes),
     TopBarComponent,
     BrowserAnimationsModule,
+    HttpClientXsrfModule
   ],
   providers: [],
   bootstrap: [AppComponent]

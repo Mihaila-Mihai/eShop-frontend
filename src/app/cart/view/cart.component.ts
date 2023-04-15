@@ -8,6 +8,7 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {CartProductComponent} from "../partials/cart-product/cart-product.component";
 import {MatInputModule} from "@angular/material/input";
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-cart',
@@ -23,7 +24,7 @@ export class CartComponent implements OnInit {
   })
 
   public cart$?: Observable<CartGetResponse>;
-  constructor(private cartService: CartService, private fb: FormBuilder) {
+  constructor(private cartService: CartService, private fb: FormBuilder, private router: Router) {
   }
 
   get voucher() {
@@ -39,6 +40,12 @@ export class CartComponent implements OnInit {
   }
 
   applyVoucher() {
+    this.cartService.applyVoucher(this.voucherForm.get('voucher')?.value).subscribe();
+  }
 
+  placeOrder() {
+    this.cartService.placeOrder().subscribe(res => {
+      this.router.navigate(['comanda-confirmata', '1'])
+    });
   }
 }

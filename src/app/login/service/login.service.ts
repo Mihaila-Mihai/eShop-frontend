@@ -2,7 +2,7 @@ import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {Router} from "@angular/router";
 
-export const baseURL = 'http://localhost:8050/eShop';
+export const baseURL = '//localhost:8050/eShop';
 
 export interface LoginInfo {
   email: string,
