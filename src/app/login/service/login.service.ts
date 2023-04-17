@@ -17,7 +17,7 @@ export class LoginService {
   constructor(private http: HttpClient, private router: Router) {
   }
   public login(payload: LoginInfo) {
-    this.http.post(`${baseURL}/login`, payload).subscribe(res => {
+    this.http.post(`${baseURL}/login`, payload, { withCredentials: true }).subscribe(res => {
       this.router.navigate(['products']);
     });
   }

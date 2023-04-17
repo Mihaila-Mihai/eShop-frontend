@@ -22,7 +22,7 @@ export class CategoryService {
         size: size,
         sortList: sortList,
         sortOrder: sortOrder,
-      }
+      }, withCredentials: true
     });
   }
 }
