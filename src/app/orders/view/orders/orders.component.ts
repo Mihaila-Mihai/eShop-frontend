@@ -22,6 +22,6 @@ export class OrdersComponent implements OnInit {
 
   ngOnInit() {
 
-    this.orders$ = this.ordersService.getOrders("1");
+    this.orders$ = this.ordersService.getOrders("1"); // todo - manage from state
   }
 }

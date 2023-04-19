@@ -59,6 +59,6 @@ export class RegisterComponent implements OnInit {
       lastName: this.lastName?.value
     }
 
-    this.registerService.register(customer);
+    this.registerService.register(customer); // todo - manage from state
   }
 }

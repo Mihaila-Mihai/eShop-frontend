@@ -41,6 +41,6 @@ export class LoginComponent implements OnInit {
       password: this.password?.value
     }
 
-    this.loginservice.login(loginInfo);
+    this.loginservice.login(loginInfo); // todo - manage from state
   }
 }

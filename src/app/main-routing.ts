@@ -53,5 +53,9 @@ export const routes: Route[] = [
   {
     path: 'comenzile-mele',
     loadComponent: () => import('./orders/view/orders/orders.component').then((m) => m.OrdersComponent)
+  },
+  {
+    path: 'voucher',
+    loadComponent: () => import('./voucher/view/add-voucher.component').then((m) => m.AddVoucherComponent)
   }
 ];

@@ -9,6 +9,13 @@ export interface LoginInfo {
   password: string
 }
 
+export interface CustomerInfo {
+  customerId: number,
+  username: string,
+  firstName: string,
+  lastName: string,
+}
+
 @Injectable({
   providedIn: "root"
 })
@@ -20,5 +27,13 @@ export class LoginService {
     this.http.post(`${baseURL}/login`, payload, { withCredentials: true }).subscribe(res => {
       this.router.navigate(['products']);
     });
+  }
+
+  public getCustomer() {
+    return this.http.get<{ message?: string, error?: string }>(`${baseURL}/customer`, { observe: "response", withCredentials: true });
+  }
+
+  public getCustomerByEmail(email: string) {
+    return this.http.get<CustomerInfo>(`${baseURL}/customer/${email}`, { withCredentials: true })
   }
 }

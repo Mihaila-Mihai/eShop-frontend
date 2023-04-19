@@ -31,7 +31,7 @@ export class CategoryComponent implements OnInit {
 
   public ngOnInit() {
     this.products$ = combineLatest([this.page$, this.size$]).pipe(switchMap(([page, size]) => {
-      return this.categoryService.getProducts(page, size, this.sortOrder, this.sortList);
+      return this.categoryService.getProducts(page, size, this.sortOrder, this.sortList); // todo - manage from state
     }))
   }
 }

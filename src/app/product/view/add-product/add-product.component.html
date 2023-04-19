@@ -4,8 +4,8 @@
     <div class="d-flex flex-column align-items-center">
       <h4 class="mb-5"> Adaugă un produs </h4>
       <form class="login-form d-flex flex-column align-items-center mb-5" [formGroup]="form" (ngSubmit)="onSubmit()">
-        <div class="d-flex flex-column">
-          <p>
+        <div class="d-flex align-items-center">
+          <div class="d-flex flex-column me-5">
             <mat-form-field appearance="fill">
               <mat-label> Nume </mat-label>
 
@@ -13,9 +13,6 @@
 
               <mat-error *ngIf="displayName?.touched && displayName?.errors?.['required']"> Câmp obligatoriu </mat-error>
             </mat-form-field>
-          </p>
-
-          <p>
             <mat-form-field appearance="fill">
               <mat-label> Pret </mat-label>
 
@@ -23,10 +20,6 @@
 
               <mat-error *ngIf="price?.touched && price?.errors"> Câmp obligatoriu </mat-error>
             </mat-form-field>
-
-          </p>
-
-          <p>
             <mat-form-field appearance="fill">
               <mat-label> Stoc </mat-label>
 
@@ -34,11 +27,52 @@
 
               <mat-error *ngIf="stock?.touched && stock?.errors"> Câmp obligatoriu </mat-error>
             </mat-form-field>
+          </div>
 
-          </p>
+          <div formGroupName="details" class="d-flex flex-column">
+            <mat-form-field appearance="fill">
+              <mat-label> Culoare </mat-label>
+
+              <input matInput formControlName="color" type="text">
+
+              <mat-error *ngIf="color?.touched && color?.errors"> Câmp obligatoriu </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+              <mat-label> Capacitate </mat-label>
+
+              <input matInput formControlName="storageCapacity" type="text">
+
+              <mat-error *ngIf="storageCapacity?.touched && storageCapacity?.errors"> Câmp obligatoriu </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+              <mat-label> Brand </mat-label>
+
+              <input matInput formControlName="brand" type="text">
+
+              <mat-error *ngIf="brand?.touched && brand?.errors"> Câmp obligatoriu </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+              <mat-label> Alta culoare </mat-label>
+
+              <input matInput formControlName="otherColor" type="text">
+
+              <mat-error *ngIf="otherColor?.touched && otherColor?.errors"> Câmp obligatoriu </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+              <mat-label> Rating </mat-label>
+
+              <input matInput formControlName="rating" type="text">
+
+              <mat-error *ngIf="rating?.touched && rating?.errors"> Câmp obligatoriu </mat-error>
+            </mat-form-field>
+          </div>
         </div>
 
-        <button mat-button class="mat-button text-bg-primary border-0" type="submit"> Salvează produsul </button>
+        <button mat-button class="mat-button text-bg-primary border-0" type="submit" [disabled]="!this.form.valid"> Salvează produsul </button>
       </form>
     </div>
   </div>

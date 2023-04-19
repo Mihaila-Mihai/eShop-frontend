@@ -8,7 +8,8 @@ import {StockPipePipe} from "../../pipes/stock-pipe.pipe";
 import {RatingPipe} from "../../pipes/rating.pipe";
 import {MatButtonModule} from "@angular/material/button";
 import {ColorDotComponent} from "../../partials/color-dot/color-dot.component";
-import {CartService} from "../../../cart/service/cart.service";
+import {Store} from "@ngrx/store";
+import * as CartActions from '../../../cart/store/cart.actions';
 
 @Component({
   selector: 'app-product',
@@ -20,15 +21,16 @@ import {CartService} from "../../../cart/service/cart.service";
 export class ProductComponent implements OnInit {
   public product$: Observable<ProductGetResponse> | undefined;
 
-  constructor(private productService: ProductService, private route: ActivatedRoute, private router: Router, private cartService: CartService) {
+  constructor(private productService: ProductService,
+              private route: ActivatedRoute,
+              private router: Router,
+              private store: Store) {
   }
   ngOnInit() {
-    this.product$ = this.route.params.pipe(switchMap(params => this.productService.getProduct(params['id'])));
+    this.product$ = this.route.params.pipe(switchMap(params => this.productService.getProduct(params['id']))); // todo - manage from state
   }
 
-  addToCart() {
-    this.cartService.addProduct().subscribe(res => {
-      this.router.navigate(['cos']);
-    })
+  addToCart(productId: number) {
+    this.store.dispatch(CartActions.addProductToCart({productId}));
   }
 }

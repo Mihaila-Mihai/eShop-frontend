@@ -1,27 +1,9 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {baseURL} from "../../login/service/login.service";
+import {CartState} from "../store/cart.state";
 
-export interface CartProduct {
-  productId: number,
-  displayName: string,
-  price: number,
-  stock: number,
-  details: {
-    color: string,
-    storageCapacity: string,
-    brand: string,
-  }
-}
-export interface CartGetResponse {
-  totalPrice: number,
-  voucher: {
-    voucherCode: string,
-    value: number,
-    active: boolean
-  },
-  products: CartProduct[]
-}
+
 
 @Injectable({
   providedIn: "root"
@@ -30,24 +12,24 @@ export class CartService {
   constructor(private http: HttpClient) {
   }
 
-  public getCart() {
-    return this.http.get<CartGetResponse>(`${baseURL}/1/cart`);
+  public getCart(customerId: number) {
+    return this.http.get<CartState>(`${baseURL}/${customerId}/cart`);
   }
 
-  public addProduct() {
+  public addProduct(customerId: number, productId: number) {
     return this.http.post<any>(`${baseURL}/cart`, {
-      customerId: 1,
-      productId: 1,
-    });
+      customerId: customerId,
+      productId: productId,
+    }, { withCredentials: true });
   }
 
   public placeOrder() {
     return this.http.post(`${baseURL}/1/checkout`, "");
   }
 
-  public applyVoucher(voucherCode: string) {
+  public applyVoucher(customerId: number, voucherCode: string) {
     return this.http.post(`${baseURL}/cart/voucher`, {
-      customerId: '1',
+      customerId: customerId,
       voucherCode: voucherCode
     });
   }

@@ -6,6 +6,15 @@ export interface ProductInfo {
   displayName: string,
   price: number,
   stock: number
+  details: ProductDetails
+}
+
+export interface ProductDetails {
+  color: string,
+  storageCapacity: string,
+  brand: string,
+  otherColors: string,
+  rating: number
 }
 
 export interface ProductPostResponse {
@@ -41,7 +50,7 @@ export class ProductService {
   }
 
   public addProduct(payload: ProductInfo) {
-    return this.http.post<ProductPostResponse>(URL, payload);
+    return this.http.post<ProductPostResponse>(URL, payload, { withCredentials: true });
   }
 
   public getProduct(id: string) {

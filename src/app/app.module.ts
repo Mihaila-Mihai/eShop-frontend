@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
@@ -7,19 +7,30 @@ import {RouterModule} from "@angular/router";
 import {routes} from "./main-routing";
 import {TopBarComponent} from "./top-bar/view/top-bar.component";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { StoreModule } from '@ngrx/store';
+import {AppStoreModule, reducers} from "./store/store.module";
+import { EffectsModule } from '@ngrx/effects';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import {AppStoreEffects} from "./store/store-files/app-store.effects";
+import {CartEffects} from "./cart/store/cart.effects";
+import {VoucherEffects} from "./voucher/store/voucher.effects";
 
 @NgModule({
   declarations: [
     AppComponent,
   ],
   imports: [
+    AppStoreModule,
     BrowserModule,
     HttpClientModule,
     RouterModule,
     RouterModule.forRoot(routes),
     TopBarComponent,
     BrowserAnimationsModule,
-    HttpClientXsrfModule
+    HttpClientXsrfModule,
+    StoreModule.forRoot(reducers),
+    EffectsModule.forRoot([AppStoreEffects, CartEffects, VoucherEffects]),
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() })
   ],
   providers: [],
   bootstrap: [AppComponent]

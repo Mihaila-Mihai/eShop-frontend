@@ -20,7 +20,14 @@ export class AddProductComponent {
   public form: FormGroup = this.fb.group({
     displayName: ['', [Validators.required]],
     price: ['', [Validators.required]],
-    stock: ['', [Validators.required]]
+    stock: ['', [Validators.required]],
+    details: this.fb.group({
+      color: ['', Validators.required],
+      storageCapacity: ['', Validators.required],
+      brand: ['', Validators.required],
+      otherColor: ['', Validators.required],
+      rating: ['', Validators.required]
+    })
   });
   get displayName() {
     return this.form.get('displayName');
@@ -33,6 +40,21 @@ export class AddProductComponent {
   get stock() {
     return this.form.get('stock');
   }
+  get color() {
+    return this.form.get('details.color');
+  }
+  get storageCapacity() {
+    return this.form.get('details.storageCapacity');
+  }
+  get brand() {
+    return this.form.get('details.brand');
+  }
+  get otherColor() {
+    return this.form.get('details.otherColor');
+  }
+  get rating() {
+    return this.form.get('details.rating');
+  }
 
   constructor(private fb: FormBuilder, private productService: ProductService, private router: Router) {
   }
@@ -41,10 +63,16 @@ export class AddProductComponent {
     const productInfo: ProductInfo = {
       displayName: this.displayName?.value,
       price: this.price?.value,
-      stock: this.stock?.value
+      stock: this.stock?.value,
+      details: {
+        color: this.color?.value,
+        storageCapacity: this.storageCapacity?.value,
+        brand: this.brand?.value,
+        otherColors: this.otherColor?.value,
+        rating: +this.rating?.value
+      }
     }
-    this.productService.addProduct(productInfo).subscribe((res: ProductPostResponse) => {
-      // console.log(res);
+    this.productService.addProduct(productInfo).subscribe((res: ProductPostResponse) => { // todo - manage from state
       this.router.navigate(['product', res.productId])
     });
   }
