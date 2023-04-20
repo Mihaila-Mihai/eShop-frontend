@@ -6,6 +6,9 @@ import {MatButtonModule} from "@angular/material/button";
 import {RouterLink} from "@angular/router";
 import {MatInputModule} from "@angular/material/input";
 import {CommonModule} from "@angular/common";
+import {AppState} from "../../store/AppState";
+import {Store} from "@ngrx/store";
+import * as RegisterActions from "../../register/store/register.actions";
 
 @Component({
   selector: 'app-register',
@@ -44,11 +47,10 @@ export class RegisterComponent implements OnInit {
     return this.registerForm.get("lastName");
   }
 
-  constructor(private registerService: RegisterService, private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private store: Store<AppState>) {
   }
 
   ngOnInit(): void {
-    // this.registerService.register();
   }
 
   onSubmit() {
@@ -58,7 +60,6 @@ export class RegisterComponent implements OnInit {
       password: this.password?.value,
       lastName: this.lastName?.value
     }
-
-    this.registerService.register(customer); // todo - manage from state
+    this.store.dispatch(RegisterActions.register({customer: customer}));
   }
 }

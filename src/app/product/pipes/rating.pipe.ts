@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import {ProductGetResponse} from "../service/product.service";
+import {ProductGetResponse} from "../store/product.state";
 
 @Pipe({
   name: 'rating',

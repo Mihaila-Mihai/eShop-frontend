@@ -6,6 +6,9 @@ import {MatInputModule} from "@angular/material/input";
 import {MatButtonModule} from "@angular/material/button";
 import {RouterLink} from "@angular/router";
 import {LoginInfo, LoginService} from "../service/login.service";
+import {AppState} from "../../store/AppState";
+import {Store} from "@ngrx/store";
+import * as LoginActions from "../store/login.actions";
 
 @Component({
   selector: 'app-login',
@@ -28,7 +31,7 @@ export class LoginComponent implements OnInit {
     return this.loginForm.get("email");
   }
 
-  constructor(private fb: FormBuilder, private loginservice: LoginService) {
+  constructor(private fb: FormBuilder, private store: Store<AppState>) {
 
   }
 
@@ -40,7 +43,6 @@ export class LoginComponent implements OnInit {
       email: this.email?.value,
       password: this.password?.value
     }
-
-    this.loginservice.login(loginInfo); // todo - manage from state
+    this.store.dispatch(LoginActions.signIn({loginInfo: loginInfo}));
   }
 }

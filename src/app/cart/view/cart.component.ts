@@ -29,7 +29,7 @@ export class CartComponent implements OnInit {
   })
 
   public cart$?: Observable<CartState>;
-  constructor(private cartService: CartService, private fb: FormBuilder, private router: Router, private store: Store<AppState>) {
+  constructor(private fb: FormBuilder, private router: Router, private store: Store<AppState>) {
   }
 
   get voucher() {
@@ -38,7 +38,7 @@ export class CartComponent implements OnInit {
 
   ngOnInit() {
     this.cart$ = this.store.select(selectCart);
-    this.store.dispatch(CartActions.getCart$());
+    this.store.dispatch(CartActions.getCart());
   }
 
   removeVoucher() {
@@ -50,8 +50,6 @@ export class CartComponent implements OnInit {
   }
 
   placeOrder() {
-    this.cartService.placeOrder().subscribe(res => { //todo - manage from state
-      this.router.navigate(['comanda-confirmata', '1'])
-    });
+    this.store.dispatch(CartActions.placeOrder());
   }
 }

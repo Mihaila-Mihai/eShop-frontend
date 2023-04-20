@@ -23,8 +23,8 @@ export class CartService {
     }, { withCredentials: true });
   }
 
-  public placeOrder() {
-    return this.http.post(`${baseURL}/1/checkout`, "");
+  public placeOrder(userId: number) {
+    return this.http.post<{message: string, error: string}>(`${baseURL}/${userId}/checkout`, "");
   }
 
   public applyVoucher(customerId: number, voucherCode: string) {

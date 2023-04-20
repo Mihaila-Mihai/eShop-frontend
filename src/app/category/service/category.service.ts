@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {HttpClient, HttpParams} from "@angular/common/http";
-import {ProductsResponse} from "../content/model";
 import {tap} from "rxjs";
+import {ProductsResponse} from "../store/category.state";
 
 export const baseURL = 'http://localhost:8050/eShop';
 

@@ -32,11 +32,11 @@ export class CartEffects {
   ), {dispatch: false});
 
   public getCart$ = createEffect(() => this.actions$.pipe(
-    ofType(CartActions.getCart$),
+    ofType(CartActions.getCart),
     concatLatestFrom(() => this.store.select(selectCustomer)),
     switchMap(([action, customer]) => {
       return this.cartService.getCart(customer.customerId!!).pipe(map((res) => {
-        return CartActions.getCartSuccess$({ cart: res });
+        return CartActions.getCartSuccess({ cart: res });
       }))
     })
   ));
@@ -47,8 +47,25 @@ export class CartEffects {
     concatLatestFrom(() => this.store.select(selectCustomer)),
     switchMap(([action, customer]) => {
       return this.cartService.applyVoucher(customer.customerId!!, action.voucherCode).pipe(mergeMap(() => {
-        return [CartActions.applyVoucherSuccess(), CartActions.getCart$()];
+        return [CartActions.applyVoucherSuccess(), CartActions.getCart()];
       }))
     })
   ));
+
+  public placeOrder$ = createEffect(() => this.actions$.pipe(
+    ofType(CartActions.placeOrder),
+    concatLatestFrom(() => this.store.select(selectCustomer)),
+    switchMap(([action, customer]) => {
+      return this.cartService.placeOrder(customer.customerId!!).pipe(map((response) => {
+        return CartActions.placeOrderSuccess({orderId: response.message});
+      }))
+    })
+  ));
+
+  public placeOrderSuccess$ = createEffect(() => this.actions$.pipe(
+    ofType(CartActions.placeOrderSuccess),
+    tap((action) => {
+      this.router.navigate(['comanda-confirmata', action.orderId]);
+    })
+  ), {dispatch: false})
 }

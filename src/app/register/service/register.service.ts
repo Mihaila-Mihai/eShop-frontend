@@ -24,9 +24,6 @@ export class RegisterService {
   }
 
   public register(payload: Customer) {
-    this.http.post<Customer>('//localhost:8050/eShop/register', payload).subscribe(res => {
-      // sessionStorage.setItem('user', JSON.stringify(res));
-      this.router.navigate(['login']);
-    });
+    return this.http.post<Customer>('//localhost:8050/eShop/register', payload);
   }
 }

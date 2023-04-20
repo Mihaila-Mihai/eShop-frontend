@@ -1,4 +1,5 @@
-import {ProductsResponse} from "./model";
+import {ProductsResponse} from "../store/category.state";
+
 
 export const ProductMock: ProductsResponse = {
   _embedded: {

@@ -6,6 +6,11 @@ import {ProductCardComponent} from "../partials/product-card/product-card.compon
 import {ProductMock} from "../content/product.mock";
 import {TopBarComponent} from "../../top-bar/view/top-bar.component";
 import {PaginationComponent} from "../../shared/pagination/pagination.component";
+import {Store} from "@ngrx/store";
+import {AppState} from "../../store/AppState";
+import * as CategoryActions from "../store/category.actions";
+import {ProductsResponse} from "../store/category.state";
+import {selectProducts} from "../store/category.selectors";
 
 @Component({
   selector: 'app-category',
@@ -21,17 +26,24 @@ import {PaginationComponent} from "../../shared/pagination/pagination.component"
   standalone: true
 })
 export class CategoryComponent implements OnInit {
-  public products$: Observable<any> | undefined;
+  public products$?: Observable<ProductsResponse | undefined>;
   public page$ = new BehaviorSubject<number>(0);
   public size$: Observable<number> = of(6);
   public sortList: string | undefined;
   public sortOrder: SortOptions = SortOptions.ASC;
-  constructor(private categoryService: CategoryService) {
+
+  constructor(private store: Store<AppState>) {
   }
 
   public ngOnInit() {
-    this.products$ = combineLatest([this.page$, this.size$]).pipe(switchMap(([page, size]) => {
-      return this.categoryService.getProducts(page, size, this.sortOrder, this.sortList); // todo - manage from state
-    }))
+    combineLatest([this.page$, this.size$]).subscribe(([page, size]) => {
+      this.store.dispatch(CategoryActions.getProducts({
+        page: page,
+        size: size,
+        sortOrder: this.sortOrder,
+        sortList: this.sortList
+      }));
+      this.products$ = this.store.select(selectProducts);
+    })
   }
 }

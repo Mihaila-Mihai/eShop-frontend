@@ -6,7 +6,10 @@ import {MatInputModule} from "@angular/material/input";
 import {MatButtonModule} from "@angular/material/button";
 import {Router, RouterLink} from "@angular/router";
 import {TopBarComponent} from "../../../top-bar/view/top-bar.component";
-import {ProductInfo, ProductPostResponse, ProductService} from "../../service/product.service";
+import {ProductInfo, ProductPostResponse} from "../../store/product.state";
+import {AppState} from "../../../store/AppState";
+import {Store} from "@ngrx/store";
+import * as ProductActions from "../../store/product.actions";
 
 @Component({
   selector: 'app-add-product',
@@ -56,7 +59,7 @@ export class AddProductComponent {
     return this.form.get('details.rating');
   }
 
-  constructor(private fb: FormBuilder, private productService: ProductService, private router: Router) {
+  constructor(private fb: FormBuilder, private router: Router, private store: Store<AppState>) {
   }
 
   onSubmit() {
@@ -72,8 +75,6 @@ export class AddProductComponent {
         rating: +this.rating?.value
       }
     }
-    this.productService.addProduct(productInfo).subscribe((res: ProductPostResponse) => { // todo - manage from state
-      this.router.navigate(['product', res.productId])
-    });
+    this.store.dispatch(ProductActions.addProduct({ productInfo: productInfo }));
   }
 }

@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {Page} from "../../category/content/model";
 import {MatButtonModule} from "@angular/material/button";
+import {Page} from "../../category/store/category.state";
 
 @Component({
   selector: 'app-pagination',

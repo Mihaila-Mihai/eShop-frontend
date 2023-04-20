@@ -2,9 +2,13 @@ import {Component, OnInit} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {TopBarComponent} from "../../../top-bar/view/top-bar.component";
 import {Observable, of} from "rxjs";
-import {OrdersResponse, OrdersService} from "../../service/orders.service";
 import {ORDER_MOCK} from "../../content/orders.mock";
 import {MatExpansionModule} from "@angular/material/expansion";
+import {AppState} from "../../../store/AppState";
+import {Store} from "@ngrx/store";
+import * as OrdersActions from "../../store/order.actions";
+import {selectOrders} from "../../store/order.selectors";
+import {OrdersResponse} from "../../store/order.state";
 
 @Component({
   selector: 'app-orders',
@@ -14,14 +18,14 @@ import {MatExpansionModule} from "@angular/material/expansion";
   styleUrls: ['./orders.component.scss']
 })
 export class OrdersComponent implements OnInit {
-  public orders$?: Observable<OrdersResponse>;
+  public orders$?: Observable<OrdersResponse | undefined>;
 
 
-  constructor(private ordersService: OrdersService) {
+  constructor(private store: Store<AppState>) {
   }
 
   ngOnInit() {
-
-    this.orders$ = this.ordersService.getOrders("1"); // todo - manage from state
+    this.store.dispatch(OrdersActions.getOrders());
+    this.orders$ = this.store.select(selectOrders);
   }
 }

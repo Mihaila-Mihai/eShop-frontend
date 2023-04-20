@@ -1,4 +1,4 @@
-import {OrdersResponse} from "../service/orders.service";
+import {OrdersResponse} from "../store/order.state";
 
 export const ORDER_MOCK: OrdersResponse = {
   orders: [

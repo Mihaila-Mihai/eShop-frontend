@@ -9,6 +9,19 @@
         <i class="bi bi-person-circle me-2"></i>
         <h6 *ngIf="!authenticated" class="text-center m-0"> Autentifică-te </h6>
         <h6 *ngIf="authenticated" class="text-center m-0"> {{customerName}} </h6>
+        <button *ngIf="authenticated" mat-icon-button [matMenuTriggerFor]="menu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item routerLink="/comenzile-mele">
+            <mat-icon>history</mat-icon>
+            <span>Comenzile mele</span>
+          </button>
+          <button mat-menu-item>
+            <mat-icon>power_settings_new</mat-icon>
+            <span>Logout</span>
+          </button>
+        </mat-menu>
       </div>
     </div>
   </div>

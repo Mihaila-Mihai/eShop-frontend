@@ -10,5 +10,8 @@ export const applyVoucher = createAction('[Cart] Apply Voucher', props<{ voucher
 
 export const applyVoucherSuccess = createAction('[Cart] Apply Voucher Success');
 
-export const getCart$ = createAction('[Cart] Get Cart');
-export const getCartSuccess$ = createAction('[Cart] Get Cart Success', props<{ cart: CartState }>());
+export const getCart = createAction('[Cart] Get Cart');
+export const getCartSuccess = createAction('[Cart] Get Cart Success', props<{ cart: CartState }>());
+
+export const placeOrder = createAction('[Cart] Place Order');
+export const placeOrderSuccess = createAction('[Cart] Place Order Success', props<{orderId: string}>());

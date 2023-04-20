@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {ProductModel} from "../../content/model";
 import {Router, RouterLink} from "@angular/router";
+import {ProductModel} from "../../store/category.state";
 
 @Component({
   selector: 'app-product-card',

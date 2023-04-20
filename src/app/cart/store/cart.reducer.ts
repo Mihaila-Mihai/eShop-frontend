@@ -4,11 +4,11 @@ import * as CartActions from './cart.actions';
 import {xhrStatus} from "../../store/store-files/app-store.state";
 export const cartReducer = createReducer(
   cartInitialState,
-  on(CartActions.getCart$, (state) => ({
+  on(CartActions.getCart, (state) => ({
     ...state,
     status: xhrStatus.loading
   })),
-  on(CartActions.getCartSuccess$, (state, cart) => ({
+  on(CartActions.getCartSuccess, (state, cart) => ({
     ...state,
     status: xhrStatus.success,
     totalPrice: cart.cart.totalPrice,

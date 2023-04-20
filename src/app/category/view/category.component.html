@@ -2,7 +2,7 @@
 <section>
   <div *ngIf="products$ | async as products" class="container p-0 my-5">
     <div class="container bg-lightgray p-2 row m-0 mb-4">
-      <div class="col-12 col-md-4 my-2" *ngFor="let product of products._embedded.productModels">
+      <div class="col-12 col-md-4 my-2" *ngFor="let product of products._embedded?.productModels">
         <app-product-card [product]="product"></app-product-card>
       </div>
     </div>

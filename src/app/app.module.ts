@@ -14,6 +14,12 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import {AppStoreEffects} from "./store/store-files/app-store.effects";
 import {CartEffects} from "./cart/store/cart.effects";
 import {VoucherEffects} from "./voucher/store/voucher.effects";
+import {ProductEffects} from "./product/store/product.effects";
+import {LoginEffects} from "./login/store/login.effects";
+import {RegisterEffects} from "./register/store/register.effects";
+import {MatSnackBarModule} from "@angular/material/snack-bar";
+import {CategoryEffects} from "./category/store/category.effects";
+import {OrderEffects} from "./orders/store/order.effects";
 
 @NgModule({
   declarations: [
@@ -29,7 +35,8 @@ import {VoucherEffects} from "./voucher/store/voucher.effects";
     BrowserAnimationsModule,
     HttpClientXsrfModule,
     StoreModule.forRoot(reducers),
-    EffectsModule.forRoot([AppStoreEffects, CartEffects, VoucherEffects]),
+    MatSnackBarModule,
+    EffectsModule.forRoot([AppStoreEffects, CartEffects, VoucherEffects, ProductEffects, LoginEffects, RegisterEffects, CategoryEffects, OrderEffects]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() })
   ],
   providers: [],
