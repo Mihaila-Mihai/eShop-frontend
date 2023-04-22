@@ -2,7 +2,7 @@ import {Component, OnInit} from "@angular/core";
 import {CommonModule} from "@angular/common";
 import {TopBarComponent} from "../../top-bar/view/top-bar.component";
 import {MatButtonModule} from "@angular/material/button";
-import {Observable} from "rxjs";
+import {Observable, takeUntil} from "rxjs";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {CartProductComponent} from "../partials/cart-product/cart-product.component";
 import {MatInputModule} from "@angular/material/input";
@@ -14,6 +14,8 @@ import * as CartActions from '../store/cart.actions';
 import {selectCart} from "../store/cart.selectors";
 import {CartState} from "../store/cart.state";
 import {CartService} from "../service/cart.service";
+import {xhrStatus} from "../../store/store-files/app-store.state";
+import {DestroyableComponent} from "../../helpers/destroyable.component";
 
 @Component({
   selector: 'app-cart',
@@ -22,14 +24,17 @@ import {CartService} from "../service/cart.service";
   standalone: true,
   imports: [CommonModule, TopBarComponent, MatButtonModule, MatFormFieldModule, CartProductComponent, MatInputModule, ReactiveFormsModule]
 })
-export class CartComponent implements OnInit {
+export class CartComponent extends DestroyableComponent implements OnInit {
 
   public voucherForm: FormGroup = this.fb.group({
     voucher: ['', [Validators.required]]
   })
 
   public cart$?: Observable<CartState>;
+
+  public error?: string;
   constructor(private fb: FormBuilder, private router: Router, private store: Store<AppState>) {
+    super();
   }
 
   get voucher() {
@@ -42,7 +47,7 @@ export class CartComponent implements OnInit {
   }
 
   removeVoucher() {
-    console.log("remove voucher");
+    this.store.dispatch(CartActions.removeVoucher());
   }
 
   applyVoucher() {
@@ -52,4 +57,10 @@ export class CartComponent implements OnInit {
   placeOrder() {
     this.store.dispatch(CartActions.placeOrder());
   }
+
+  deleteCart() {
+    this.store.dispatch(CartActions.clearCart());
+  }
+
+  protected readonly xhrStatus = xhrStatus;
 }

@@ -1,11 +1,12 @@
 <app-top-bar></app-top-bar>
 <section>
   <div class="container mt-5" *ngIf="cart$ | async as cart">
-    <div class="row d-flex justify-content-between">
+    <div *ngIf="cart.status !== xhrStatus.error" class="row d-flex justify-content-between">
       <div class="products-list bg-white rounded-2 py-3 col-7 d-flex flex-column justify-content-center">
         <div *ngFor="let product of cart.products">
           <app-cart-product class="product" [product]="product"></app-cart-product>
         </div>
+        <button *ngIf="cart.products?.length" mat-button class="mat-button text-bg-primary border-0 align-self-center" (click)="deleteCart()">Golește coșul</button>
       </div>
 
       <div class="total-price flex-column bg-white rounded-2 col-4 d-flex justify-content-between p-4">

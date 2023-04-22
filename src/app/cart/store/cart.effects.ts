@@ -2,16 +2,19 @@ import {Injectable} from "@angular/core";
 import {Actions, concatLatestFrom, createEffect, ofType} from "@ngrx/effects";
 import {CartService} from "../service/cart.service";
 import * as CartActions from './cart.actions';
-import {concatMap, map, mergeMap, of, switchMap, tap} from "rxjs";
+import {catchError, concatMap, debounce, debounceTime, map, mergeMap, of, switchMap, tap} from "rxjs";
 import {Store} from "@ngrx/store";
 import {selectCustomer} from "../../store/store-files/app-store.selectors";
 import {AppState} from "../../store/AppState";
 import {Router} from "@angular/router";
+import {selectCart} from "./cart.selectors";
+import * as AppActions from "../../store/store-files/app-store.actions";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 
 @Injectable()
 export class CartEffects {
-  constructor(private actions$: Actions, private cartService: CartService, private store: Store<AppState>, private router: Router) {
+  constructor(private actions$: Actions, private cartService: CartService, private store: Store<AppState>, private router: Router, private snackBar: MatSnackBar) {
   }
 
   public addProductToCart$ = createEffect(() => this.actions$.pipe(
@@ -36,10 +39,28 @@ export class CartEffects {
     concatLatestFrom(() => this.store.select(selectCustomer)),
     switchMap(([action, customer]) => {
       return this.cartService.getCart(customer.customerId!!).pipe(map((res) => {
-        return CartActions.getCartSuccess({ cart: res });
-      }))
+        return CartActions.getCartSuccess({cart: res});
+      }), catchError((error) => of(CartActions.getCartError(error))))
     })
   ));
+
+  public getCartError$ = createEffect(() => this.actions$.pipe(
+    ofType(CartActions.getCartError),
+    tap((action) => {
+      this.router.navigate(["/"]);
+      if (action.error.error.includes("empty")) {
+        this.snackBar.open("Coșul dumneavoastră este gol", "x", {
+          verticalPosition: "top",
+          horizontalPosition: "center"
+        })
+      } else {
+        this.snackBar.open("A avut loc o eroare", "x", {
+          verticalPosition: "top",
+          horizontalPosition: "center"
+        })
+      }
+    })
+  ), {dispatch: false})
 
 
   public applyVoucher$ = createEffect(() => this.actions$.pipe(
@@ -51,6 +72,16 @@ export class CartEffects {
       }))
     })
   ));
+
+  public removeVoucher$ = createEffect(() => this.actions$.pipe(
+    ofType(CartActions.removeVoucher),
+    concatLatestFrom(() => this.store.select(selectCart)),
+    switchMap(([action, cart]) => {
+      return this.cartService.removeVoucher(cart.cartId!!).pipe(mergeMap(() => {
+        return [CartActions.removeVoucherSuccess(), CartActions.getCart()];
+      }))
+    })
+  ))
 
   public placeOrder$ = createEffect(() => this.actions$.pipe(
     ofType(CartActions.placeOrder),
@@ -68,4 +99,14 @@ export class CartEffects {
       this.router.navigate(['comanda-confirmata', action.orderId]);
     })
   ), {dispatch: false})
+
+  public clearCart$ = createEffect(() => this.actions$.pipe(
+    ofType(CartActions.clearCart),
+    concatLatestFrom(() => this.store.select(selectCustomer)),
+    switchMap(([action, customer]) => {
+      return this.cartService.clearCart(customer.customerId!!).pipe(mergeMap(() => {
+        return [CartActions.clearCartSuccess(), CartActions.getCart()];
+      }))
+    })
+  ))
 }

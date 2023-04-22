@@ -14,6 +14,8 @@ export interface CartProduct {
 }
 export interface CartState {
   status?: xhrStatus,
+  error?: { error: string },
+  cartId?: number,
   totalPrice?: number,
   voucher?: {
     voucherCode: string,

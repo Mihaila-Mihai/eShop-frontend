@@ -34,7 +34,11 @@ export class CartService {
     });
   }
 
-  // public removeVoucher() {
-  //   return this.http.
-  // }
+  public removeVoucher(cartId: number) {
+    return this.http.delete(`${baseURL}/${cartId}/voucher`, { withCredentials: true});
+  }
+
+  public clearCart(customerId: number) {
+    return this.http.delete(`${baseURL}/${customerId}/cart`, { withCredentials: true });
+  }
 }
