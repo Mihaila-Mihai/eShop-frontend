@@ -1,6 +1,7 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {Router} from "@angular/router";
+import {environment} from "../../../environments/environment.dev";
 
 
 export interface Customer {
@@ -14,7 +15,8 @@ export interface Customer {
   providedIn: "root"
 })
 export class RegisterService {
-  private URI = 'http://localhost:8050/eShop/register';
+  private baseURL = environment.serverUrl;
+
   private body = {
     "firstName": "",
     "lastName": "Mihaila",
@@ -24,6 +26,6 @@ export class RegisterService {
   }
 
   public register(payload: Customer) {
-    return this.http.post<Customer>('//localhost:8050/eShop/register', payload);
+    return this.http.post<Customer>(`${this.baseURL}/register`, payload);
   }
 }
