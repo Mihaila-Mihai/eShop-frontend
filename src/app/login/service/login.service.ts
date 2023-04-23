@@ -38,6 +38,6 @@ export class LoginService {
   }
 
   public logOut() {
-    return this.http.get(`//localhost:8050/logout`, {withCredentials: true});
+    return this.http.get(`${this.baseURL}/logout`, {withCredentials: true});
   }
 }
