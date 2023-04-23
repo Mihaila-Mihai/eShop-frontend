@@ -18,6 +18,6 @@ export class ProductService {
   }
 
   public getProduct(id: string) {
-    return this.http.get<ProductGetResponse>(`${URL}/${id}`);
+    return this.http.get<ProductGetResponse>(`${URL}/${id}`, {withCredentials: true});
   }
 }

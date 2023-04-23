@@ -1,6 +1,8 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {Router} from "@angular/router";
+import {catchError, of} from "rxjs";
+import {on} from "@ngrx/store";
 
 export const baseURL = '//localhost:8050/eShop';
 
@@ -33,5 +35,9 @@ export class LoginService {
 
   public getCustomerByEmail(email: string) {
     return this.http.get<CustomerInfo>(`${baseURL}/customer/${email}`, { withCredentials: true })
+  }
+
+  public logOut() {
+    return this.http.get(`//localhost:8050/logout`, {withCredentials: true});
   }
 }

@@ -9,6 +9,7 @@ import {MatMenuModule} from "@angular/material/menu";
 import {MatIconModule} from "@angular/material/icon";
 import {MatButtonModule} from "@angular/material/button";
 import {DestroyableComponent} from "../../helpers/destroyable.component";
+import * as LoginActions from "../../login/store/login.actions";
 
 @Component({
   selector: 'app-top-bar',
@@ -42,5 +43,9 @@ export class TopBarComponent extends DestroyableComponent implements OnInit {
     if (!this.authenticated) {
       this.router.navigate(['/login']);
     }
+  }
+
+  logout() {
+    this.store.dispatch(LoginActions.logOut());
   }
 }

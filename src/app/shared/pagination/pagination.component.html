@@ -1,16 +1,16 @@
 <section class="d-flex justify-content-center">
   <div class="buttons">
-    <button *ngIf="currentPage > 0"
+    <button [disabled]="!(currentPage > 0)"
             mat-button
-            class="mat-button text-bg-secondary me-3"
+            class="mat-button me-3 p-0 rounded-0"
             (click)="changePage(currentPage - 1)">
-      Previous
+      <i class="bi-chevron-left"></i>
     </button>
-    <button *ngIf="paginationInfo && currentPage < paginationInfo.totalPages - 1"
+    <button [disabled]="!(paginationInfo && currentPage < paginationInfo.totalPages - 1)"
             mat-button
-            class="mat-button text-bg-secondary me-3"
+            class="mat-button me-3 p-0 rounded-0"
             (click)="changePage(currentPage + 1)">
-      Next
+      <i class="bi-chevron-right"></i>
     </button>
   </div>
 </section>

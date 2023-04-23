@@ -11,6 +11,8 @@ import {AppState} from "../../store/AppState";
 import * as CategoryActions from "../store/category.actions";
 import {ProductsResponse} from "../store/category.state";
 import {selectProducts} from "../store/category.selectors";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatSelectChange, MatSelectModule} from "@angular/material/select";
 
 @Component({
   selector: 'app-category',
@@ -21,7 +23,9 @@ import {selectProducts} from "../store/category.selectors";
     CommonModule,
     ProductCardComponent,
     TopBarComponent,
-    PaginationComponent
+    PaginationComponent,
+    MatFormFieldModule,
+    MatSelectModule
   ],
   standalone: true
 })
@@ -29,21 +33,26 @@ export class CategoryComponent implements OnInit {
   public products$?: Observable<ProductsResponse | undefined>;
   public page$ = new BehaviorSubject<number>(0);
   public size$: Observable<number> = of(6);
-  public sortList: string | undefined;
-  public sortOrder: SortOptions = SortOptions.ASC;
+  public sortList: string | undefined = "price";
+  public sortOrder$ = new BehaviorSubject(SortOptions.ASC);
+  public sortOptions = SortOptions;
 
   constructor(private store: Store<AppState>) {
   }
 
   public ngOnInit() {
-    combineLatest([this.page$, this.size$]).subscribe(([page, size]) => {
+    combineLatest([this.page$, this.size$, this.sortOrder$]).subscribe(([page, size, order]) => {
       this.store.dispatch(CategoryActions.getProducts({
         page: page,
         size: size,
-        sortOrder: this.sortOrder,
+        sortOrder: order,
         sortList: this.sortList
       }));
       this.products$ = this.store.select(selectProducts);
     })
+  }
+
+  changeOrder($event: MatSelectChange) {
+    this.sortOrder$.next($event.value);
   }
 }

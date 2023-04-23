@@ -1,13 +1,20 @@
 <app-top-bar></app-top-bar>
 <section>
   <div *ngIf="products$ | async as products" class="container p-0 my-5">
+    <mat-form-field appearance="fill">
+      <mat-label>Sortează</mat-label>
+      <mat-select [value]="sortOrder$ | async" (selectionChange)="changeOrder($event)">
+        <mat-option [value]="sortOptions.ASC">Preț crescător</mat-option>
+        <mat-option [value]="sortOptions.DESC">Preț descrescător</mat-option>
+      </mat-select>
+    </mat-form-field>
     <div class="container bg-lightgray p-2 row m-0 mb-4">
       <div class="col-12 col-md-4 my-2" *ngFor="let product of products._embedded?.productModels">
         <app-product-card [product]="product"></app-product-card>
       </div>
     </div>
 
-    <app-pagination
+    <app-pagination *ngIf="products.page.totalPages > 1"
                     [paginationInfo]="products.page"
                     [currentPage]="(page$ | async) || 1 - 1"
                     (onNavigation)="page$.next($event)">

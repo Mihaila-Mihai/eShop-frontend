@@ -13,7 +13,7 @@ export class CartService {
   }
 
   public getCart(customerId: number) {
-    return this.http.get<CartState>(`${baseURL}/${customerId}/cart`);
+    return this.http.get<CartState>(`${baseURL}/${customerId}/cart`, {withCredentials: true});
   }
 
   public addProduct(customerId: number, productId: number) {

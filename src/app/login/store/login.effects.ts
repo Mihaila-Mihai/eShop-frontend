@@ -38,4 +38,20 @@ export class LoginEffects {
       })
     })
   ), {dispatch: false})
+
+  public logOut$ = createEffect(() => this.actions$.pipe(
+    ofType(LoginActions.logOut),
+    switchMap(() => {
+      return this.loginService.logOut().pipe(map(() => {
+        return LoginActions.logOutSuccess();
+      }), catchError(() => of(LoginActions.logOutSuccess())))
+    })
+  ))
+
+  public logOutSuccess$ = createEffect(() => this.actions$.pipe(
+    ofType(LoginActions.logOutSuccess),
+    tap(() => {
+      window.location.reload();
+    })
+  ), {dispatch: false})
 }
