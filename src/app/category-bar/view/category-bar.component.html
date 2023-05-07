@@ -1,0 +1,21 @@
+<section>
+  <div class="category__bar d-flex align-items-center" #element>
+    <span class="category"
+          *ngFor="let category of categories"
+          [class.category__active]="category.selected"
+          (click)="openOverlay(category)">
+      {{category.name | titlecase}}
+    </span>
+  </div>
+
+  <ng-template
+    cdkConnectedOverlay
+    [cdkConnectedOverlayOrigin]="element"
+    [cdkConnectedOverlayHasBackdrop]="true"
+    [cdkConnectedOverlayOffsetX]="50"
+    (backdropClick)="isOverlayOpen = false"
+    [cdkConnectedOverlayOpen]="isOverlayOpen || false">
+<!--    todo - create overlay component-->
+  </ng-template>
+
+</section>

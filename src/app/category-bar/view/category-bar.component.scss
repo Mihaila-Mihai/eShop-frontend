@@ -1,0 +1,32 @@
+.category__bar {
+  height: 70px;
+  background-color: var(--black);
+  margin-top: 4px;
+  display: flex;
+  color: var(--gray);
+}
+
+.category {
+  margin-left: 29px;
+  font-size: 22px;
+  font-weight: 600;
+  cursor: pointer;
+
+  &:not(.category__active) {
+    &:hover {
+      color: var(--700);
+    }
+  }
+
+  &__active {
+    color: var(--white);
+
+    &::after {
+      content: "";
+      border: 1px solid var(--white);
+      position: relative;
+      display: block;
+      top: 4px
+    }
+  }
+}

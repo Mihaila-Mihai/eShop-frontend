@@ -33,7 +33,7 @@ export interface ProductModel {
   "displayName": string,
   "price": number,
   "stock": number,
-  "variations": VariationModel[]
+  "variations"?: VariationModel[]
 }
 
 export interface VariationModel {

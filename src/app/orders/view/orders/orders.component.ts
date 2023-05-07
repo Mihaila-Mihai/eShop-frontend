@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {TopBarComponent} from "../../../top-bar/view/top-bar.component";
+import {NavBarComponent} from "../../../top-bar/view/nav-bar.component";
 import {Observable, of} from "rxjs";
 import {ORDER_MOCK} from "../../content/orders.mock";
 import {MatExpansionModule} from "@angular/material/expansion";
@@ -13,7 +13,7 @@ import {OrdersResponse} from "../../store/order.state";
 @Component({
   selector: 'app-orders',
   standalone: true,
-  imports: [CommonModule, TopBarComponent, MatExpansionModule],
+  imports: [CommonModule, NavBarComponent, MatExpansionModule],
   templateUrl: './orders.component.html',
   styleUrls: ['./orders.component.scss']
 })

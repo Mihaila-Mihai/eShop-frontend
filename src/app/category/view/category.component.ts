@@ -4,7 +4,7 @@ import {BehaviorSubject, combineLatest, Observable, of, Subject, switchMap} from
 import {AsyncPipe, CommonModule} from "@angular/common";
 import {ProductCardComponent} from "../partials/product-card/product-card.component";
 import {ProductMock} from "../content/product.mock";
-import {TopBarComponent} from "../../top-bar/view/top-bar.component";
+import {NavBarComponent} from "../../top-bar/view/nav-bar.component";
 import {PaginationComponent} from "../../shared/pagination/pagination.component";
 import {Store} from "@ngrx/store";
 import {AppState} from "../../store/AppState";
@@ -13,6 +13,7 @@ import {ProductsResponse} from "../store/category.state";
 import {selectProducts} from "../store/category.selectors";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatSelectChange, MatSelectModule} from "@angular/material/select";
+import {CategoryBarComponent} from "../../category-bar/view/category-bar.component";
 
 @Component({
   selector: 'app-category',
@@ -22,10 +23,11 @@ import {MatSelectChange, MatSelectModule} from "@angular/material/select";
     AsyncPipe,
     CommonModule,
     ProductCardComponent,
-    TopBarComponent,
+    NavBarComponent,
     PaginationComponent,
     MatFormFieldModule,
-    MatSelectModule
+    MatSelectModule,
+    CategoryBarComponent
   ],
   standalone: true
 })
@@ -41,15 +43,17 @@ export class CategoryComponent implements OnInit {
   }
 
   public ngOnInit() {
-    combineLatest([this.page$, this.size$, this.sortOrder$]).subscribe(([page, size, order]) => {
-      this.store.dispatch(CategoryActions.getProducts({
-        page: page,
-        size: size,
-        sortOrder: order,
-        sortList: this.sortList
-      }));
-      this.products$ = this.store.select(selectProducts);
-    })
+    // combineLatest([this.page$, this.size$, this.sortOrder$]).subscribe(([page, size, order]) => {
+    //   this.store.dispatch(CategoryActions.getProducts({
+    //     page: page,
+    //     size: size,
+    //     sortOrder: order,
+    //     sortList: this.sortList
+    //   }));
+    //   this.products$ = this.store.select(selectProducts);
+    // })
+
+
   }
 
   changeOrder($event: MatSelectChange) {

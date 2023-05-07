@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import {HttpClientModule, HttpClientXsrfModule} from "@angular/common/http";
 import {RouterModule} from "@angular/router";
 import {routes} from "./main-routing";
-import {TopBarComponent} from "./top-bar/view/top-bar.component";
+import {NavBarComponent} from "./top-bar/view/nav-bar.component";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreModule } from '@ngrx/store';
 import {AppStoreModule, reducers} from "./store/store.module";
@@ -20,6 +20,7 @@ import {RegisterEffects} from "./register/store/register.effects";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {CategoryEffects} from "./category/store/category.effects";
 import {OrderEffects} from "./orders/store/order.effects";
+import {FooterComponent} from "./footer/footer.component";
 
 @NgModule({
   declarations: [
@@ -31,13 +32,14 @@ import {OrderEffects} from "./orders/store/order.effects";
     HttpClientModule,
     RouterModule,
     RouterModule.forRoot(routes),
-    TopBarComponent,
+    NavBarComponent,
     BrowserAnimationsModule,
     HttpClientXsrfModule,
     StoreModule.forRoot(reducers),
     MatSnackBarModule,
     EffectsModule.forRoot([AppStoreEffects, CartEffects, VoucherEffects, ProductEffects, LoginEffects, RegisterEffects, CategoryEffects, OrderEffects]),
-    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() })
+    StoreDevtoolsModule.instrument({maxAge: 25, logOnly: !isDevMode()}),
+    FooterComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

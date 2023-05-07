@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {CommonModule} from "@angular/common";
+import {CommonModule, NgOptimizedImage} from "@angular/common";
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
@@ -9,13 +9,15 @@ import {LoginInfo, LoginService} from "../service/login.service";
 import {AppState} from "../../store/AppState";
 import {Store} from "@ngrx/store";
 import * as LoginActions from "../store/login.actions";
+import {NavBarComponent} from "../../top-bar/view/nav-bar.component";
+import {MatIconModule} from "@angular/material/icon";
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, RouterLink]
+  imports: [CommonModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, RouterLink, NavBarComponent, NgOptimizedImage, MatIconModule]
 })
 export class LoginComponent implements OnInit {
   public loginForm: FormGroup = this.fb.group({
@@ -23,6 +25,7 @@ export class LoginComponent implements OnInit {
     password: ['', Validators.required]
 
   });
+  public hide = true;
 
   get password() {
     return this.loginForm.get("password");

@@ -1,59 +1,62 @@
 <section class="h-100">
-  <div class="wrapper h-100">
-    <div class="d-flex flex-column align-items-center">
-      <h4 class="mb-5"> Înregistrare </h4>
-      <form class="login-form d-flex flex-column align-items-center mb-5" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-        <div class="d-flex flex-column">
-          <p>
-            <mat-form-field appearance="fill">
-              <mat-label> Email</mat-label>
+  <div class="container">
+    <div class="row">
+      <div class="col-8 container__image p-0">
+        <div class="container__image__overlay h-100 w-100">
+          <h1> “1st Fashion Brand in <br> Romania” </h1>
+        </div>
+      </div>
+      <div class="container__form col-4 d-flex flex-column align-items-center justify-content-center">
+        <h1> Register </h1>
+
+        <form class="login-form d-flex flex-column align-items-center" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+          <div class="d-flex flex-column">
+            <mat-form-field appearance="outline">
+              <mat-label> Email </mat-label>
 
               <input matInput formControlName="email" type="email">
 
               <mat-error *ngIf="email?.touched && email?.errors?.['required']"> Câmp obligatoriu </mat-error>
               <mat-error *ngIf="email?.touched && email?.errors?.['email']"> Email invalid </mat-error>
             </mat-form-field>
-          </p>
 
-          <p>
-            <mat-form-field appearance="fill">
-              <mat-label> Parola</mat-label>
+            <mat-form-field appearance="outline">
+              <mat-label> Username </mat-label>
 
-              <input matInput formControlName="password" type="password">
+              <input matInput formControlName="username" type="email">
+
+              <mat-error *ngIf="email?.touched && email?.errors?.['required']"> Câmp obligatoriu </mat-error>
+              <mat-error *ngIf="email?.touched && email?.errors?.['email']"> Email invalid </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label> Password </mat-label>
+
+              <input matInput formControlName="password" [type]="hide ? 'password' : 'text'">
+              <button type="button" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+              </button>
 
               <mat-error *ngIf="password?.touched && password?.errors"> Câmp obligatoriu </mat-error>
             </mat-form-field>
 
-          </p>
+            <mat-form-field appearance="outline">
+              <mat-label> Confirm Password </mat-label>
 
-          <p>
-            <mat-form-field appearance="fill">
-              <mat-label> Prenume </mat-label>
+              <input matInput formControlName="confirmPassword" [type]="hideConfirm ? 'password' : 'text'">
+              <button type="button" mat-icon-button matSuffix (click)="hideConfirm = !hideConfirm" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideConfirm">
+                <mat-icon>{{hideConfirm ? 'visibility_off' : 'visibility'}}</mat-icon>
+              </button>
 
-              <input matInput formControlName="firstName" type="text">
-
-              <mat-error *ngIf="firstName?.touched && firstName?.errors"> Câmp obligatoriu </mat-error>
+              <mat-error *ngIf="confirmPassword?.touched && confirmPassword?.errors"> Câmp obligatoriu </mat-error>
             </mat-form-field>
+          </div>
 
-          </p>
+          <button mat-flat-button color="primary" class="border-0 rounded-3" type="submit"> REGISTER </button>
+        </form>
 
-          <p>
-            <mat-form-field appearance="fill">
-              <mat-label> Nume </mat-label>
-
-              <input matInput formControlName="lastName" type="text">
-
-              <mat-error *ngIf="lastName?.touched && lastName?.errors"> Câmp obligatoriu </mat-error>
-            </mat-form-field>
-
-          </p>
-        </div>
-
-        <button mat-button class="mat-button text-bg-primary border-0" type="submit"> Înregistrează-te </button>
-      </form>
-
-      <p class="no-account m-0"> Ai deja un cont? <span class="ms-2" routerLink="/login"> Autentifică-te </span> </p>
+        <p class="no-account m-0"> Already have an account? <span class="ms-2" routerLink="/login"> Login </span> </p>
+      </div>
     </div>
   </div>
-
 </section>

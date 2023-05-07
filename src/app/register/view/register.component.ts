@@ -9,31 +9,36 @@ import {CommonModule} from "@angular/common";
 import {AppState} from "../../store/AppState";
 import {Store} from "@ngrx/store";
 import * as RegisterActions from "../../register/store/register.actions";
+import {MatIconModule} from "@angular/material/icon";
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],
-  imports: [
-    ReactiveFormsModule,
-    MatFormFieldModule,
-    MatButtonModule,
-    RouterLink,
-    MatInputModule,
-    CommonModule
-  ],
+    imports: [
+        ReactiveFormsModule,
+        MatFormFieldModule,
+        MatButtonModule,
+        RouterLink,
+        MatInputModule,
+        CommonModule,
+        MatIconModule
+    ],
   standalone: true
 })
 export class RegisterComponent implements OnInit {
 
   public registerForm: FormGroup = this.fb.group({
     email: ['', [Validators.email, Validators.required]],
+    username: ['', [Validators.required]],
     password: ['', [Validators.required]],
-    firstName: ['', [Validators.required]],
-    lastName: ['']
+    confirmPassword: ['', [Validators.required]]
   });
-  get firstName() {
-    return this.registerForm.get("firstName");
+
+  public hide = true;
+  public hideConfirm = true;
+  get username() {
+    return this.registerForm.get("username");
   };
 
   get password() {
@@ -43,8 +48,8 @@ export class RegisterComponent implements OnInit {
     return this.registerForm.get("email");
   }
 
-  get lastName() {
-    return this.registerForm.get("lastName");
+  get confirmPassword() {
+    return this.registerForm.get("confirmPassword");
   }
 
   constructor(private fb: FormBuilder, private store: Store<AppState>) {
@@ -56,10 +61,12 @@ export class RegisterComponent implements OnInit {
   onSubmit() {
     const customer: Customer = {
       email: this.email?.value,
-      firstName: this.firstName?.value,
-      password: this.password?.value,
-      lastName: this.lastName?.value
+      username: this.username?.value,
+      password: this.password?.value
     }
-    this.store.dispatch(RegisterActions.register({customer: customer}));
+
+    if (this.password?.value === this.confirmPassword?.value) {
+      this.store.dispatch(RegisterActions.register({customer: customer}));
+    }
   }
 }

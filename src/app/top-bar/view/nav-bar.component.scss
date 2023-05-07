@@ -1,0 +1,18 @@
+section {
+  width: 100%;
+  display: block;
+  margin-inline: auto;
+  background-color: var(--black);
+}
+
+.container {
+  height: 6.25rem;
+  max-width: 1400px;
+
+  &__logo {
+    color: var(--white);
+    h2 {
+      font-size: 32px;
+    }
+  }
+}

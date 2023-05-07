@@ -6,8 +6,7 @@ import {environment} from "../../../environments/environment.dev";
 
 export interface Customer {
   email: string,
-  firstName: string,
-  lastName: string,
+  username: string,
   password: string
 }
 

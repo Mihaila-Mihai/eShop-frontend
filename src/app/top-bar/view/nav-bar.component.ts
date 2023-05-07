@@ -12,13 +12,13 @@ import {DestroyableComponent} from "../../helpers/destroyable.component";
 import * as LoginActions from "../../login/store/login.actions";
 
 @Component({
-  selector: 'app-top-bar',
+  selector: 'app-nav-bar',
   standalone: true,
   imports: [CommonModule, RouterLink, MatMenuModule, MatIconModule, MatButtonModule],
-  templateUrl: './top-bar.component.html',
-  styleUrls: ['./top-bar.component.scss']
+  templateUrl: './nav-bar.component.html',
+  styleUrls: ['./nav-bar.component.scss']
 })
-export class TopBarComponent extends DestroyableComponent implements OnInit {
+export class NavBarComponent extends DestroyableComponent implements OnInit {
   public authenticated = false;
   public customerName?: string;
 

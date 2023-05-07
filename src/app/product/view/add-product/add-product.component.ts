@@ -5,7 +5,7 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {MatButtonModule} from "@angular/material/button";
 import {Router, RouterLink} from "@angular/router";
-import {TopBarComponent} from "../../../top-bar/view/top-bar.component";
+import {NavBarComponent} from "../../../top-bar/view/nav-bar.component";
 import {ProductInfo, ProductPostResponse} from "../../store/product.state";
 import {AppState} from "../../../store/AppState";
 import {Store} from "@ngrx/store";
@@ -14,7 +14,7 @@ import * as ProductActions from "../../store/product.actions";
 @Component({
   selector: 'app-add-product',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, RouterLink, TopBarComponent],
+  imports: [CommonModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, RouterLink, NavBarComponent],
   templateUrl: './add-product.component.html',
   styleUrls: ['./add-product.component.scss']
 })

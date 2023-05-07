@@ -1,0 +1,35 @@
+section {
+  background-color: var(--footer);
+  color: var(--white);
+  height: 324px;
+}
+
+.container {
+  max-width: 100%;
+
+  &__footer {
+    flex: 1;
+
+    h4 {
+      font-size: 22px;
+
+      &.logo {
+        font-size: 24px;
+      }
+
+      &.social {
+        margin-bottom: 24px;
+      }
+    }
+
+    p {
+      font-size: 22px;
+    }
+
+    a {
+      color: #AAAAAA;
+      font-size: 18px;
+      margin-bottom: 14px;
+    }
+  }
+}
