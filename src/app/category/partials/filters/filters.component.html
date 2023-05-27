@@ -1,0 +1,31 @@
+<section class="wrapper">
+  <mat-expansion-panel *ngFor="let filterGroup of filterGroups" expanded class="rounded-0 shadow-none">
+    <mat-expansion-panel-header> {{filterGroup.filterGroupName | uppercase}} </mat-expansion-panel-header>
+    <div class="body" [class.price]="filterGroup.type === filterTypes.PRICE">
+      <div *ngIf="filterGroup.type !== filterTypes.PRICE">
+        <div *ngFor="let filter of filterGroup.filters">
+          <mat-checkbox color="primary" *ngIf="filterGroup.type === filterTypes.CHECKBOX"> {{filter.filterName}} </mat-checkbox>
+          <mat-checkbox *ngIf="filterGroup.type === filterTypes.COLOR"> {{filter.filterName}} </mat-checkbox>
+        </div>
+      </div>
+
+      <div *ngIf="filterGroup.type === filterTypes.PRICE">
+        <div class="row">
+          <mat-form-field class="col-6" appearance="outline">
+            <input matInput type="text">
+          </mat-form-field>
+          <mat-form-field class="col-6" appearance="outline">
+            <input matInput type="text">
+          </mat-form-field>
+        </div>
+
+        <div class="d-flex justify-content-center">
+          <mat-slider class="" min="20" color="primary" max="500">
+            <input value="25" matSliderStartThumb>
+            <input value="225" matSliderEndThumb>
+          </mat-slider>
+        </div>
+      </div>
+    </div>
+  </mat-expansion-panel>
+</section>

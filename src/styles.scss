@@ -89,11 +89,12 @@ body {
   --white: #fefefc;
   --footer: #2F2F2F;
   --gray: #AAAAAA;
+  --separator: #E6E6E6;
 }
 
-.container {
-  max-width: 1500px;
-}
+//.container {
+//  max-width: 1500px;
+//}
 
 .svg-34 {
   width: 34px !important;
@@ -103,4 +104,8 @@ body {
     width: 34px;
     height: 34px;
   }
+}
+
+.cursor-pointer {
+  cursor: pointer;
 }

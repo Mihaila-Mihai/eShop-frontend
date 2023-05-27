@@ -1,4 +1,5 @@
 import {ProductsResponse} from "../store/category.state";
+import {CategoryPageRequestResponse, FilterGroup, FilterType, Product, StockState} from "./model";
 
 
 export const ProductMock: ProductsResponse = {
@@ -75,3 +76,137 @@ export const ProductMock: ProductsResponse = {
     totalElements: 1
   }
 }
+
+export const FILTERGROUPS: FilterGroup[] = [
+  {
+    filterGroupCode: "brand",
+    filterGroupName: "brand",
+    type: FilterType.CHECKBOX,
+    filters: [
+      {
+        filterCode: "ellesse",
+        filterName: "Ellesse",
+      },
+      {
+        filterCode: "adidas",
+        filterName: "Adidas",
+      }
+    ]
+  },
+  {
+    filterGroupCode: "price",
+    filterGroupName: "price",
+    type: FilterType.PRICE,
+    filters: [
+      {
+        filterValue: "75",
+      },
+      {
+        filterValue: "250"
+      }
+    ]
+  },
+  {
+    filterGroupCode: "color",
+    filterGroupName: "color",
+    type: FilterType.COLOR,
+    filters: [
+      {
+        filterCode: "black",
+        filterName: "black",
+      },
+      {
+        filterCode: "white",
+        filterName: "white",
+      }
+    ]
+  },
+];
+
+export const PRODUCTS: Product[] = [
+  {
+    productId: 1,
+    price: 1200,
+    productCode: "CODE-1",
+    diaplayName: "Jacket Ellesse Montellio Jacket",
+    image: "https://static.footshop.com/931018-full_product/264595.jpg",
+    stockState: StockState.IN_STOCK
+  },
+  {
+    productId: 1,
+    price: 1200,
+    productCode: "CODE-1",
+    diaplayName: "Jacket Ellesse Montellio Jacket",
+    image: "https://static.footshop.com/931018-full_product/264595.jpg",
+    stockState: StockState.IN_STOCK
+  },
+  {
+    productId: 1,
+    price: 1200,
+    productCode: "CODE-1",
+    diaplayName: "Jacket Ellesse Montellio Jacket",
+    image: "https://static.footshop.com/931018-full_product/264595.jpg",
+    stockState: StockState.IN_STOCK
+  },
+  {
+    productId: 1,
+    price: 1200,
+    productCode: "CODE-1",
+    diaplayName: "Jacket Ellesse Montellio Jacket",
+    image: "https://static.footshop.com/931018-full_product/264595.jpg",
+    stockState: StockState.IN_STOCK
+  },
+  {
+    productId: 1,
+    price: 1200,
+    productCode: "CODE-1",
+    diaplayName: "Jacket Ellesse Montellio Jacket",
+    image: "https://static.footshop.com/931018-full_product/264595.jpg",
+    stockState: StockState.IN_STOCK
+  },
+  {
+    productId: 1,
+    price: 1200,
+    productCode: "CODE-1",
+    diaplayName: "Jacket Ellesse Montellio Jacket",
+    image: "https://static.footshop.com/931018-full_product/264595.jpg",
+    stockState: StockState.IN_STOCK
+  },
+  {
+    productId: 1,
+    price: 1200,
+    productCode: "CODE-1",
+    diaplayName: "Jacket Ellesse Montellio Jacket",
+    image: "https://static.footshop.com/931018-full_product/264595.jpg",
+    stockState: StockState.IN_STOCK
+  },
+  {
+    productId: 1,
+    price: 1200,
+    productCode: "CODE-1",
+    diaplayName: "Jacket Ellesse Montellio Jacket",
+    image: "https://static.footshop.com/931018-full_product/264595.jpg",
+    stockState: StockState.IN_STOCK
+  },
+  {
+    productId: 1,
+    price: 1200,
+    productCode: "CODE-1",
+    diaplayName: "Jacket Ellesse Montellio Jacket",
+    image: "https://static.footshop.com/931018-full_product/264595.jpg",
+    stockState: StockState.IN_STOCK
+  },
+  {
+    productId: 1,
+    price: 1200,
+    productCode: "CODE-1",
+    diaplayName: "Jacket Ellesse Montellio Jacket",
+    image: "https://static.footshop.com/931018-full_product/264595.jpg",
+    stockState: StockState.IN_STOCK
+  },
+];
+
+export const CATEGORY_RESPONSE: CategoryPageRequestResponse = {
+  products: PRODUCTS,
+  filterGroups: FILTERGROUPS
+};

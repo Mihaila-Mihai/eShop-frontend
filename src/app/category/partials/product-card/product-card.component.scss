@@ -3,27 +3,23 @@
 }
 
 .display-name {
-  color: black;
-  font-size: 1.3rem;
-  font-weight: bold;
+  color: var(--black);
+  font-size: 12px;
+  line-height: 15px;
+  font-weight: 400;
 }
 
 .product-image {
-  max-width: 50%;
+  width: 225px;
+  height: 235px;
 }
 
 .details-button {
   max-width: 140px;
 }
 
-.wrapper {
-  &:hover {
-    box-shadow: 7px -7px 12px -3px #48abe0;
-  }
-  transition: all 0.2s ease-in;
-}
-
 .price {
-  font-size: 1.5rem;
-  font-weight: bold;
+  font-size: 13px;
+  line-height: 16px;
+  font-weight: 600;
 }

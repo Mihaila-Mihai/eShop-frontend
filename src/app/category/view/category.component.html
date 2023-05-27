@@ -1,24 +1,27 @@
 <app-category-bar></app-category-bar>
 <section>
-  <div *ngIf="products$ | async as products" class="container p-0 my-5">
-    <mat-form-field appearance="fill">
-      <mat-label>Sortează</mat-label>
-      <mat-select [value]="sortOrder$ | async" (selectionChange)="changeOrder($event)">
-        <mat-option [value]="sortOptions.ASC">Preț crescător</mat-option>
-        <mat-option [value]="sortOptions.DESC">Preț descrescător</mat-option>
-      </mat-select>
-    </mat-form-field>
-    <div class="container bg-lightgray p-2 row m-0 mb-4">
-      <div class="col-12 col-md-4 my-2" *ngFor="let product of products._embedded?.productModels">
-        <app-product-card [product]="product"></app-product-card>
+  <div *ngIf="products$ | async as response" class="content d-flex flex-column p-0">
+    <div class="sort d-flex justify-content-end">
+      <mat-form-field appearance="outline" color="primary" class="rounded-0">
+        <mat-select [value]="sortOrder$ | async" (selectionChange)="changeOrder($event)">
+          <mat-option [value]="sortOptions.ASC">Preț crescător</mat-option>
+          <mat-option [value]="sortOptions.DESC">Preț descrescător</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="d-flex">
+      <div class="filters">
+        <app-filters [filterGroups]="response.filterGroups"></app-filters>
+      </div>
+      <div class="row m-0">
+        <div class="product-container" *ngFor="let product of response.products">
+          <app-product-card [product]="product"></app-product-card>
+        </div>
+        <div class="col-12 d-flex justify-content-center align-items-end">
+          <button mat-flat-button color="primary" class="rounded-0"> SHOW MORE </button>
+        </div>
       </div>
     </div>
-
-    <app-pagination *ngIf="products.page.totalPages > 1"
-                    [paginationInfo]="products.page"
-                    [currentPage]="(page$ | async) || 1 - 1"
-                    (onNavigation)="page$.next($event)">
-    </app-pagination>
   </div>
 </section>
 

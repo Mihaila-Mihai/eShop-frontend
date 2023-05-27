@@ -2,3 +2,24 @@
   width: 100%;
   display: block;
 }
+
+section {
+  display: flex;
+  justify-content: center;
+
+  .content {
+    width: fit-content;
+    max-width: 1440px;
+    margin-bottom: 28.5px;
+  }
+}
+
+.sort {
+  margin-top: 4px;
+}
+
+.product-container {
+  width: fit-content;
+  max-width: 100%;
+  padding-inline: 9px;
+}

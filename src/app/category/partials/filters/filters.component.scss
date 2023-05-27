@@ -1,0 +1,32 @@
+.wrapper {
+  width: 209px;
+  padding-inline: 20px;
+  background-color: var(--white);
+  margin-right: 3px;
+  min-height: 644px;
+
+  ::ng-deep .mat-expansion-panel-header {
+    padding: 10px !important;
+    height: 48px !important;
+    background: var(--white) !important;
+    margin-bottom: 4px !important;
+  }
+
+   ::ng-deep .mat-expansion-panel-body {
+    padding: 0;
+  }
+
+  ::ng-deep .mdc-checkbox {
+    label {
+      font-weight: 300 !important;
+    }
+  }
+
+}
+
+.mat-expansion-panel {
+  border-bottom: 1px solid;
+  border-color: var(--separator);
+}
+
+

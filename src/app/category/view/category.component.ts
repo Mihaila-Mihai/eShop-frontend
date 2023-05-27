@@ -3,7 +3,7 @@ import {CategoryService, SortOptions} from "../service/category.service";
 import {BehaviorSubject, combineLatest, Observable, of, Subject, switchMap} from "rxjs";
 import {AsyncPipe, CommonModule} from "@angular/common";
 import {ProductCardComponent} from "../partials/product-card/product-card.component";
-import {ProductMock} from "../content/product.mock";
+import {CATEGORY_RESPONSE, ProductMock} from "../content/product.mock";
 import {NavBarComponent} from "../../top-bar/view/nav-bar.component";
 import {PaginationComponent} from "../../shared/pagination/pagination.component";
 import {Store} from "@ngrx/store";
@@ -14,6 +14,9 @@ import {selectProducts} from "../store/category.selectors";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatSelectChange, MatSelectModule} from "@angular/material/select";
 import {CategoryBarComponent} from "../../category-bar/view/category-bar.component";
+import {CategoryPageRequestResponse} from "../content/model";
+import {FiltersComponent} from "../partials/filters/filters.component";
+import {MatButtonModule} from "@angular/material/button";
 
 @Component({
   selector: 'app-category',
@@ -27,12 +30,14 @@ import {CategoryBarComponent} from "../../category-bar/view/category-bar.compone
     PaginationComponent,
     MatFormFieldModule,
     MatSelectModule,
-    CategoryBarComponent
+    CategoryBarComponent,
+    FiltersComponent,
+    MatButtonModule
   ],
   standalone: true
 })
 export class CategoryComponent implements OnInit {
-  public products$?: Observable<ProductsResponse | undefined>;
+  public products$: Observable<CategoryPageRequestResponse | undefined>;
   public page$ = new BehaviorSubject<number>(0);
   public size$: Observable<number> = of(6);
   public sortList: string | undefined = "price";
@@ -52,6 +57,8 @@ export class CategoryComponent implements OnInit {
     //   }));
     //   this.products$ = this.store.select(selectProducts);
     // })
+
+    this.products$ = of(CATEGORY_RESPONSE);
 
 
   }
