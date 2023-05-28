@@ -1,0 +1,11 @@
+<div class="wrapper d-flex">
+  <div class="quantity" [class.disabled]="!(quantity > 1)" (click)="decrease()">
+    <span class="quantity__decrease rounded-0 m-auto">-</span>
+  </div>
+  <div class="quantity value">
+    <span class="quantity__value">{{quantity}}</span>
+  </div>
+  <div class="quantity" (click)="increase()">
+    <span class="quantity__increase rounded-0">+</span>
+  </div>
+</div>

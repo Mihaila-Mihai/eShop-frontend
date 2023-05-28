@@ -4,8 +4,8 @@
     <div class="body" [class.price]="filterGroup.type === filterTypes.PRICE">
       <div *ngIf="filterGroup.type !== filterTypes.PRICE">
         <div *ngFor="let filter of filterGroup.filters">
-          <mat-checkbox color="primary" *ngIf="filterGroup.type === filterTypes.CHECKBOX"> {{filter.filterName}} </mat-checkbox>
-          <mat-checkbox *ngIf="filterGroup.type === filterTypes.COLOR"> {{filter.filterName}} </mat-checkbox>
+          <mat-checkbox color="primary" *ngIf="filterGroup.type === filterTypes.CHECKBOX"> {{filter.filterName | titlecase}} </mat-checkbox>
+          <mat-checkbox *ngIf="filterGroup.type === filterTypes.COLOR" class="{{filter?.filterCode}}"> {{filter.filterName | titlecase}} </mat-checkbox>
         </div>
       </div>
 

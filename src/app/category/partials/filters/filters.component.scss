@@ -1,6 +1,23 @@
+@mixin checkbox-color($color) {
+  .mdc-checkbox__ripple, .mdc-checkbox__background {
+    @if ($color == white) {
+      border-color: var(--mdc-checkbox-unselected-icon-color) !important;
+      background-color: var(--white) !important;
+
+      .mdc-checkbox__checkmark {
+        color: var(--black) !important;
+      }
+    } @else {
+      border-color: $color !important;
+      background-color: $color !important;
+    }
+  }
+}
+
 .wrapper {
   width: 209px;
   padding-inline: 20px;
+  padding-bottom: 20px;
   background-color: var(--white);
   margin-right: 3px;
   min-height: 644px;
@@ -12,11 +29,35 @@
     margin-bottom: 4px !important;
   }
 
-   ::ng-deep .mat-expansion-panel-body {
-    padding: 0;
+  ::ng-deep .mat-mdc-checkbox-checked, ::ng-deep .mat-mdc-checkbox {
+    &.black {
+      @include checkbox-color($color: var(--black));
+    }
+
+    &.white {
+      @include checkbox-color($color: white);
+    }
+
+    &.green {
+      @include checkbox-color($color: #009933);
+    }
+
+    &.blue {
+      @include checkbox-color($color: #003399);
+    }
+
+    &.red {
+      @include checkbox-color($color: #FF0000);
+    }
   }
 
-  ::ng-deep .mdc-checkbox {
+  ::ng-deep .mat-expansion-panel-body {
+    padding: 0;
+    margin-bottom: 10px;
+  }
+
+  ::ng-deep .mat-mdc-checkbox {
+    height: 20px;
     label {
       font-weight: 300 !important;
     }
@@ -25,6 +66,7 @@
 }
 
 .mat-expansion-panel {
+  background-color: var(--white);
   border-bottom: 1px solid;
   border-color: var(--separator);
 }

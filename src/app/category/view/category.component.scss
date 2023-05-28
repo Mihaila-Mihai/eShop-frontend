@@ -9,17 +9,29 @@ section {
 
   .content {
     width: fit-content;
-    max-width: 1440px;
     margin-bottom: 28.5px;
+    margin-inline: 13px;
+
+    ::ng-deep .mdc-button {
+      height: 2.375rem;
+      min-width: 10.3125rem;
+      font-size: 15px;
+      line-height: 18px;
+    }
   }
 }
-
 .sort {
   margin-top: 4px;
 }
 
 .product-container {
+  flex: 0 1 20%;
   width: fit-content;
   max-width: 100%;
   padding-inline: 9px;
+  margin-bottom: 16px;
+}
+
+.pt-11 {
+  padding-top: 11px;
 }

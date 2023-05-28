@@ -11,9 +11,10 @@ export interface FilterGroup {
 }
 
 export interface Filter {
-  filterCode?: string,
-  filterName?: string,
-  filterValue?: string
+  filterCode?: string;
+  filterName?: string;
+  filterValue?: string;
+  color?: string;
 }
 
 export enum FilterType {

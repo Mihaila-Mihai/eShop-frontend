@@ -1,0 +1,33 @@
+.quantity {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 27px;
+  width: 34px;
+  border: 1px solid #ACACAC;
+
+  &:not(.value):not(.disabled) {
+    cursor: pointer;
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.1);
+      transition: all 0.2s ease;
+    }
+  }
+
+  &__decrease {
+    position: relative;
+    bottom: 2px;
+  }
+
+  &__increase, &__decrease {
+    color: #8B8A8A;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 29px;
+    user-select: none;
+  }
+}
+
+.disabled {
+  background-color: var(--400);
+}

@@ -1,39 +1,159 @@
+.wrapper {
+  margin-top: 78px;
+  margin-bottom: 120px;
 
-.products-list {
-  button {
-    max-width: 50%;
+  ::ng-deep .mdc-notched-outline {
+    &__leading, &__trailing {
+      border-radius: 0 !important;
+    }
   }
 }
 
-
-.price-zone {
-  h1 {
-    font-weight: bold;
-  }
-  height: fit-content;
-  width: 100%;
-  border: 1px lightblue solid;
-  padding: 1rem;
-  border-radius: 20px;
-  box-shadow: 0 0 10px lightblue;
-  text-align: center;
+form, .delivery-address {
+  margin-bottom: 19px;
 }
 
-.voucher-zone {
-  h3 {
-    font-weight: bold;
-    margin-bottom: 0;
+.products-summary {
+  margin-top: 10px;
+  padding-right: 100px;
+
+  .products {
+    padding-block: 23px;
+    padding-left: 34px;
+    background-color: var(--white);
+    margin-bottom: 42px;
   }
-  height: fit-content;
-  width: 100%;
-  border: 1px lightblue solid;
-  padding: 1rem;
 }
 
-.no-voucher-zone {
-
+.image-container {
+  width: 180px;
+  height: 180px;
+  margin-right: 34.5px;
 }
 
 .product {
-  //border: 1px solid black;
+  &__details {
+    h1 {
+      font-weight: 500;
+      font-size: 20px;
+      line-height: 24px;
+      margin-bottom: 5px;
+
+      &:last-of-type {
+        margin-bottom: 14px;
+      }
+    }
+
+    p {
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 22px;
+      color: #5A5A5A;
+      margin-bottom: 2px;
+
+      &:last-of-type {
+        margin-bottom: 5px;
+      }
+    }
+  }
+}
+
+.delivery-address {
+  padding-block: 19px;
+  cursor: pointer;
+}
+
+.delivery-info {
+  background-color: var(--white);
+  margin-top: 88px;
+  max-width: 1440px;
+
+  form {
+    padding-top: 34px;
+
+    ::ng-deep .mat-mdc-form-field {
+      width: 100%;
+
+      &.prefix {
+        width: 100px;
+
+        .mat-icon {
+          padding: 0 5px 18px;
+        }
+      }
+    }
+  }
+
+  form, .delivery-and-courier, .shipping-insurance, .delivery-address  {
+    border-bottom: 1px solid #DADADA;
+
+    & > div > div {
+      padding-inline: 30px;
+    }
+
+    .save-address {
+      margin-bottom: 8px;
+    }
+  }
+
+
+
+  ::ng-deep .mat-mdc-text-field-wrapper {
+    height: 39px;
+  }
+
+  ::ng-deep .mat-mdc-form-field-infix {
+    bottom: 9px;
+  }
+}
+
+.save-address, .apply-voucher {
+  height: 39px;
+  max-width: 118px;
+  width: 118px;
+}
+
+.delivery-and-courier {
+  margin-bottom: 12px;
+  padding-bottom: 17px;
+}
+
+.cart-summary {
+  padding: 65px 23px 23px;
+  background-color: var(--white);
+  height: fit-content;
+
+  .voucher {
+    margin-bottom: 29px;
+
+    ::ng-deep .mat-mdc-text-field-wrapper {
+      height: 42px;
+    }
+
+    ::ng-deep .mat-mdc-form-field-infix {
+      bottom: 9px;
+    }
+
+    &__input {
+      flex-grow: 1;
+      margin-right: 23px;
+      height: 42px;
+    }
+  }
+
+  .lines {
+    padding-bottom: 22px;
+    border-bottom: 1px solid #DADADA;
+  }
+
+  .total {
+    padding-block: 15px;
+    border-bottom: 1px solid #DADADA;
+    margin-bottom: 22px;
+  }
+
+  .payment__button {
+    height: 39px;
+    max-width: 300px;
+  }
 }

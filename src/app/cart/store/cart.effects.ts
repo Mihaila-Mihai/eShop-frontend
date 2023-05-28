@@ -63,25 +63,25 @@ export class CartEffects {
   ), {dispatch: false})
 
 
-  public applyVoucher$ = createEffect(() => this.actions$.pipe(
-    ofType(CartActions.applyVoucher),
-    concatLatestFrom(() => this.store.select(selectCustomer)),
-    switchMap(([action, customer]) => {
-      return this.cartService.applyVoucher(customer.customerId!!, action.voucherCode).pipe(mergeMap(() => {
-        return [CartActions.applyVoucherSuccess(), CartActions.getCart()];
-      }))
-    })
-  ));
+  // public applyVoucher$ = createEffect(() => this.actions$.pipe(
+  //   ofType(CartActions.applyVoucher),
+  //   concatLatestFrom(() => this.store.select(selectCustomer)),
+  //   switchMap(([action, customer]) => {
+  //     return this.cartService.applyVoucher(customer.customerId!!, action.voucherCode).pipe(mergeMap(() => {
+  //       return [CartActions.applyVoucherSuccess(), CartActions.getCart()];
+  //     }))
+  //   })
+  // ));
 
-  public removeVoucher$ = createEffect(() => this.actions$.pipe(
-    ofType(CartActions.removeVoucher),
-    concatLatestFrom(() => this.store.select(selectCart)),
-    switchMap(([action, cart]) => {
-      return this.cartService.removeVoucher(cart.cartId!!).pipe(mergeMap(() => {
-        return [CartActions.removeVoucherSuccess(), CartActions.getCart()];
-      }))
-    })
-  ))
+  // public removeVoucher$ = createEffect(() => this.actions$.pipe(
+  //   ofType(CartActions.removeVoucher),
+  //   concatLatestFrom(() => this.store.select(selectCart)),
+  //   switchMap(([action, cart]) => {
+  //     return this.cartService.removeVoucher(cart.cartId!!).pipe(mergeMap(() => {
+  //       return [CartActions.removeVoucherSuccess(), CartActions.getCart()];
+  //     }))
+  //   })
+  // ))
 
   public placeOrder$ = createEffect(() => this.actions$.pipe(
     ofType(CartActions.placeOrder),

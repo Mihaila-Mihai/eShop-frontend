@@ -13,7 +13,7 @@
       <div class="filters">
         <app-filters [filterGroups]="response.filterGroups"></app-filters>
       </div>
-      <div class="row m-0">
+      <div class="row m-0 pt-11 align-content-start d-flex">
         <div class="product-container" *ngFor="let product of response.products">
           <app-product-card [product]="product"></app-product-card>
         </div>

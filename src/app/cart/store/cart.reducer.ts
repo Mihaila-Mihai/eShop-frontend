@@ -2,27 +2,89 @@ import {createReducer, on} from "@ngrx/store";
 import {cartInitialState} from "./cart.state";
 import * as CartActions from './cart.actions';
 import {xhrStatus} from "../../store/store-files/app-store.state";
+import {Cart, Item} from "../content/model";
+
+// function increaseQuantity(state: Cart, item: Item) {
+//   let ind: any;
+//   const find = state.items.find((el, index) => {
+//     ind = index
+//     return el.item = item;
+//   });
+//   if (find) {
+//     find.quantity = find.quantity + 1;
+//     state.items[ind] = find;
+//   }
+//
+//   return state.items;
+// }
 
 export const cartReducer = createReducer(
   cartInitialState,
-  on(CartActions.getCart, (state) => ({
+  on(CartActions.modifyInsurance, (state, {applied}) => ({
     ...state,
-    status: xhrStatus.loading
+    shippingInsurance: {
+      ...state.shippingInsurance,
+      applied: applied,
+    },
+    summary: {
+      ...state.summary,
+      totalPrice: applied ? state.summary.totalPrice + state.shippingInsurance.price : state.summary.totalPrice - state.shippingInsurance.price
+    }
   })),
-  on(CartActions.getCartSuccess, (state, cart) => ({
+  on(CartActions.applyVoucher, (state, {id}) => ({
     ...state,
-    status: xhrStatus.success,
-    cartId: cart.cart.cartId,
-    totalPrice: cart.cart.totalPrice,
-    voucher: {...cart.cart.voucher!!},
-    products: cart.cart.products
+    voucher: {
+      ...state.voucher,
+      id: id,
+      value: 10
+    },
+    summary: {
+      ...state.summary,
+      totalPrice: state.summary.totalPrice - (state.voucher?.value ?? 10)
+    }
   })),
-  on(CartActions.getCartError, (state, {error}) => ({
-    status: xhrStatus.error,
-    error: error,
-    cartId: undefined,
-    totalPrice: undefined,
+  on(CartActions.removeVoucher, (state) => ({
+    ...state,
+    summary: {
+      ...state.summary,
+      totalPrice: state.summary.totalPrice + (state.voucher?.value ?? 0)
+    },
     voucher: undefined,
-    products: undefined,
+  })),
+  on(CartActions.saveAddress, (state, {address}) => ({
+    ...state,
+    deliveryAddress: {
+      ...address
+    }
+  })),
+  on(CartActions.increaseItemQuantity, (state, {item}) => ({
+    ...state,
+    items: {
+      [item.id]: {
+        ...state.items[item.id],
+        quantity: state.items[item.id].quantity + 1
+      }
+    },
+    summary: {
+      ...state.summary,
+      itemsCount: state.summary.itemsCount + 1,
+      totalPrice: state.summary.totalPrice + state.items[item.id].item.price,
+      productsTotalPrice: state.summary.productsTotalPrice + state.items[item.id].item.price,
+    }
+  })),
+  on(CartActions.decreaseItemQuantity, (state, {item}) => ({
+    ...state,
+    items: {
+      [item.id]: {
+        ...state.items[item.id],
+        quantity: state.items[item.id].quantity - 1
+      }
+    },
+    summary: {
+      ...state.summary,
+      itemsCount: state.summary.itemsCount - 1,
+      totalPrice: state.summary.totalPrice - state.items[item.id].item.price,
+      productsTotalPrice: state.summary.productsTotalPrice - state.items[item.id].item.price,
+    }
   }))
 )

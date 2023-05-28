@@ -118,6 +118,49 @@ export const FILTERGROUPS: FilterGroup[] = [
       {
         filterCode: "white",
         filterName: "white",
+      },
+      {
+        filterCode: "green",
+        filterName: "green",
+      },
+      {
+        filterCode: "red",
+        filterName: "red",
+      },
+      {
+        filterCode: "blue",
+        filterName: "blue",
+      }
+    ]
+  },
+  {
+    filterGroupCode: "categories",
+    filterGroupName: "categories",
+    type: FilterType.CHECKBOX,
+    filters: [
+      {
+        filterCode: "dresses",
+        filterName: "dresses",
+      },
+      {
+        filterCode: "hoodies",
+        filterName: "hoodies",
+      },
+      {
+        filterCode: "jackets",
+        filterName: "jackets",
+      },
+      {
+        filterCode: "Jeans & Trousers",
+        filterName: "Jeans & Trousers",
+      },
+      {
+        filterCode: "Tops",
+        filterName: "Tops",
+      },
+      {
+        filterCode: "T-shirts",
+        filterName: "T-shirts",
       }
     ]
   },
