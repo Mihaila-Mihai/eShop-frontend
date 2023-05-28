@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {RouterLink} from "@angular/router";
+import {Router, RouterLink} from "@angular/router";
 
 @Component({
   selector: 'app-homepage',
@@ -11,5 +11,13 @@ import {RouterLink} from "@angular/router";
   standalone: true
 })
 export class HomepageComponent {
+  constructor(private router: Router) { }
+
+  ngOnInit(): void {
+  }
+
+  navigateToOtherPage(): void {
+    this.router.navigate(['/products']);
+  }
 
 }
