@@ -71,4 +71,41 @@
   border-color: var(--separator);
 }
 
+.price {
+  ::ng-deep .mat-mdc-form-field {
+    height: 28px;
+  }
+
+  ::ng-deep .mdc-notched-outline {
+    &__leading, &__trailing {
+      border-radius: 0 !important;
+    }
+  }
+
+  ::ng-deep .mat-mdc-text-field-wrapper {
+    height: 28px;
+  }
+
+  ::ng-deep .mat-mdc-form-field-infix {
+    bottom: 14px;
+  }
+
+  ::ng-deep .mat-mdc-input-element {
+    text-align: right;
+    position: relative;
+    right: 8px;
+  }
+
+  ::ng-deep .mat-mdc-form-field-icon-suffix {
+    position: relative;
+    bottom: 14px;
+    right: 7px;
+  }
+
+  ::ng-deep .mat-mdc-slider {
+    margin: 0;
+    width: 80%;
+  }
+}
+
 

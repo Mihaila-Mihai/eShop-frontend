@@ -13,20 +13,22 @@
         </div>
       </div>
 
-      <div *ngIf="filterGroup.type === filterTypes.PRICE">
+      <div class="price" *ngIf="filterGroup.type === filterTypes.PRICE">
         <div class="row">
           <mat-form-field class="col-6" appearance="outline">
-            <input matInput type="text">
+            <input matInput [(ngModel)]="min" type="text">
+            <span matSuffix>€</span>
           </mat-form-field>
           <mat-form-field class="col-6" appearance="outline">
-            <input matInput type="text">
+            <input matInput [(ngModel)]="maxValue" type="text">
+            <span matSuffix>€</span>
           </mat-form-field>
         </div>
 
         <div class="d-flex justify-content-center">
           <mat-slider class="" min="20" color="primary" max="500">
-            <input value="25" matSliderStartThumb>
-            <input value="225" matSliderEndThumb>
+            <input value="25" matSliderStartThumb [(ngModel)]="min">
+            <input value="225" matSliderEndThumb [(ngModel)]="maxValue">
           </mat-slider>
         </div>
       </div>

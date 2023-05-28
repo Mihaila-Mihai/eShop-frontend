@@ -4,8 +4,8 @@
     <div class="sort d-flex justify-content-end">
       <mat-form-field appearance="outline" color="primary" class="rounded-0">
         <mat-select [value]="sortOrder$ | async" (selectionChange)="changeOrder($event)">
-          <mat-option [value]="sortOptions.ASC">Preț crescător</mat-option>
-          <mat-option [value]="sortOptions.DESC">Preț descrescător</mat-option>
+          <mat-option [value]="sortOptions.ASC">Price (ascending)</mat-option>
+          <mat-option [value]="sortOptions.DESC">Price (descending)</mat-option>
         </mat-select>
       </mat-form-field>
     </div>
@@ -31,5 +31,5 @@
 
 
 <ng-template #noProducts>
-  <p> Din păcate, nu am reușit să găsim produse! </p>
+  <p> Oops, we couldn't find any product! </p>
 </ng-template>

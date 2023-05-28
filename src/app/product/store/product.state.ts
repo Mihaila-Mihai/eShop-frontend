@@ -175,7 +175,7 @@ export const productInitialState: ProductState = {
             content: "jersey",
           }]
       }],
-      sizeGuide: "",
+      sizeGuide: "https://static.thcdn.com/widgets/262-eu/31/original-Womens_size_guide_copy_2%402x_EU-013831.png",
       thumbnail: "https://static.footshop.com/940084/254581.jpg",
       categories: [Category.WOMEN, Category.TOP],
       size: ProductSize.M,

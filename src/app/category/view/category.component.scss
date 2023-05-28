@@ -8,7 +8,6 @@ section {
   justify-content: center;
 
   .content {
-    //width: fit-content;
     margin-bottom: 28.5px;
     margin-inline: 13px;
     width: 100%;
@@ -23,6 +22,21 @@ section {
 }
 .sort {
   margin-top: 4px;
+
+
+  ::ng-deep .mdc-notched-outline {
+    &__leading, &__trailing {
+      border-radius: 0 !important;
+    }
+  }
+
+  ::ng-deep .mat-mdc-text-field-wrapper {
+    height: 39px;
+  }
+
+  ::ng-deep .mat-mdc-form-field-infix {
+    bottom: 9px;
+  }
 }
 
 .product-container {

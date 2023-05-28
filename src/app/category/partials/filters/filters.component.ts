@@ -7,18 +7,22 @@ import {MatSliderModule} from "@angular/material/slider";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {ActivatedRoute, Router} from "@angular/router";
-import {filter} from "rxjs";
+import {filter, max} from "rxjs";
+import {FormsModule} from "@angular/forms";
 
 @Component({
   selector: 'app-filters',
   templateUrl: "./filters.component.html",
   styleUrls: ["./filters.component.scss"],
   standalone: true,
-  imports: [CommonModule, MatExpansionModule, MatCheckboxModule, MatSliderModule, MatFormFieldModule, MatInputModule]
+  imports: [CommonModule, MatExpansionModule, MatCheckboxModule, MatSliderModule, MatFormFieldModule, MatInputModule, FormsModule]
 })
 export class FiltersComponent implements OnInit {
   @Input() public filterGroups: FilterGroup[];
   public filterTypes = FilterType;
+
+  public min: number = 50;
+  public maxValue: number = 250;
 
   constructor(private router: Router, private route: ActivatedRoute) {
   }
@@ -48,4 +52,6 @@ export class FiltersComponent implements OnInit {
 
 
   }
+
+  protected readonly max = max;
 }
