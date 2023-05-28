@@ -16,7 +16,6 @@ export class OrderEffects{
     ofType(OrdersActions.getOrders),
     concatLatestFrom(() => this.store.select(selectCustomer)),
     switchMap(([action, customer]) => {
-      console.log(customer.customerId);
       return this.ordersService.getOrders(customer.customerId!!).pipe(map((res) => {
         return OrdersActions.getOrdersSuccess({orderInfo: res});
       }), catchError(() => of(OrdersActions.getOrdersError())))

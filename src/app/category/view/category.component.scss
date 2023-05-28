@@ -8,9 +8,10 @@ section {
   justify-content: center;
 
   .content {
-    width: fit-content;
+    //width: fit-content;
     margin-bottom: 28.5px;
     margin-inline: 13px;
+    width: 100%;
 
     ::ng-deep .mdc-button {
       height: 2.375rem;

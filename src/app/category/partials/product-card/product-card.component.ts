@@ -2,7 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {Router, RouterLink} from "@angular/router";
 import {ProductModel} from "../../store/category.state";
-import {Product} from "../../content/model";
+import {Product} from "../../../product/content/model";
 
 @Component({
   selector: 'app-product-card',
@@ -25,6 +25,6 @@ export class ProductCardComponent implements OnInit {
 
 
   navigate() {
-    this.router.navigate(['product', this.product?.productId])
+    this.router.navigate(['product', this.product?.id])
   }
 }

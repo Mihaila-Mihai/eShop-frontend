@@ -21,6 +21,9 @@ import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {CategoryEffects} from "./category/store/category.effects";
 import {OrderEffects} from "./orders/store/order.effects";
 import {FooterComponent} from "./footer/footer.component";
+import {register} from 'swiper/element/bundle';
+
+register();
 
 @NgModule({
   declarations: [
@@ -39,7 +42,7 @@ import {FooterComponent} from "./footer/footer.component";
     MatSnackBarModule,
     EffectsModule.forRoot([AppStoreEffects, CartEffects, VoucherEffects, ProductEffects, LoginEffects, RegisterEffects, CategoryEffects, OrderEffects]),
     StoreDevtoolsModule.instrument({maxAge: 25, logOnly: !isDevMode()}),
-    FooterComponent
+    FooterComponent,
   ],
   providers: [],
   bootstrap: [AppComponent]

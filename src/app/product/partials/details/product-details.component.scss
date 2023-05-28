@@ -1,0 +1,23 @@
+h2 {
+  margin-top: 26px;
+  margin-bottom: 11px;
+  font-weight: 700;
+}
+
+h3 {
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+p {
+  margin-bottom: 22px;
+  color: #5A5A5A;
+}
+
+.d-flex {
+  align-items: center;
+  p {
+    align-self: center;
+    margin: 0 0 5px 3px;
+  }
+}

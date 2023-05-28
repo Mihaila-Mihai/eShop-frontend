@@ -1,5 +1,8 @@
+import {Product} from "../../product/content/model";
+import {ProductState} from "../../product/store/product.state";
+
 export interface CategoryPageRequestResponse {
-  products: Product[],
+  products: ProductState,
   filterGroups: FilterGroup[]
 }
 
@@ -23,14 +26,14 @@ export enum FilterType {
   "COLOR"
 }
 
-export interface Product {
-  image: string,
-  diaplayName: string,
-  price: number,
-  productId: number,
-  productCode: string,
-  stockState: StockState
-}
+// export interface Product {
+//   image: string,
+//   diaplayName: string,
+//   price: number,
+//   productId: number,
+//   productCode: string,
+//   stockState: StockState
+// }
 
 export enum StockState {
   "IN_STOCK",

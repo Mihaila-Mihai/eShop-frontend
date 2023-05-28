@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {CategoryService, SortOptions} from "../service/category.service";
-import {BehaviorSubject, combineLatest, Observable, of, Subject, switchMap} from "rxjs";
+import {BehaviorSubject, combineLatest, filter, map, Observable, of, Subject, switchMap, tap} from "rxjs";
 import {AsyncPipe, CommonModule} from "@angular/common";
 import {ProductCardComponent} from "../partials/product-card/product-card.component";
 import {CATEGORY_RESPONSE, ProductMock} from "../content/product.mock";
@@ -17,6 +17,9 @@ import {CategoryBarComponent} from "../../category-bar/view/category-bar.compone
 import {CategoryPageRequestResponse} from "../content/model";
 import {FiltersComponent} from "../partials/filters/filters.component";
 import {MatButtonModule} from "@angular/material/button";
+import {productInitialState, ProductState} from "../../product/store/product.state";
+import {ActivatedRoute} from "@angular/router";
+import {Product} from "../../product/content/model";
 
 @Component({
   selector: 'app-category',
@@ -43,8 +46,10 @@ export class CategoryComponent implements OnInit {
   public sortList: string | undefined = "price";
   public sortOrder$ = new BehaviorSubject(SortOptions.ASC);
   public sortOptions = SortOptions;
+  public keys: string[];
+  public prods$: Observable<ProductState> = of(productInitialState);
 
-  constructor(private store: Store<AppState>) {
+  constructor(private store: Store<AppState>, private route: ActivatedRoute) {
   }
 
   public ngOnInit() {
@@ -57,13 +62,48 @@ export class CategoryComponent implements OnInit {
     //   }));
     //   this.products$ = this.store.select(selectProducts);
     // })
+    // this.prods$.subscribe(res => {
+    // })
 
-    this.products$ = of(CATEGORY_RESPONSE);
+    this.products$ = combineLatest([of(CATEGORY_RESPONSE), this.route.queryParams, of(productInitialState)]).pipe(tap(([_, __, res]) => { this.keys = Object.keys(res); }),filter(([res, qParams, prods]) => {
+      let filter = qParams['filter']
+      if (filter) {
+        filter = filter.split(',');
+      }
+      let keysCopy = [...this.keys];
+      for (let key = 0; key < keysCopy.length; key++) {
+        console.log(keysCopy[key]);
+        let prod = res.products[+keysCopy[key]].product;
+        if (prod && filter) {
+          if (!(filter.includes(prod.color) || filter.includes(prod.brand))) {
+            let index = this.keys.indexOf(keysCopy[key]);
+            if (index > -1) {
+              this.keys.splice(index, 1);
+            }
+          }
+        }
+      }
+      return true;
+    }), map(([res, _, __]) => {
+      return res
+    }))
+    // this.products$ = of(CATEGORY_RESPONSE).pipe(filter(el => {
+    //   if ()
+    // }));
+    this.prods$.subscribe(res => {
+      this.keys = Object.keys(res);
+    })
+
+
 
 
   }
 
   changeOrder($event: MatSelectChange) {
     this.sortOrder$.next($event.value);
+  }
+
+  getProduct(prods: ProductState, product: string) {
+    return prods[+product].product;
   }
 }

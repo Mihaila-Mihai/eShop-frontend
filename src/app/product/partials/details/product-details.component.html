@@ -1,0 +1,12 @@
+<div *ngFor="let detail of detailsArray">
+  <h2 *ngIf="detail.first">{{detail.title | uppercase}}</h2>
+
+  <div *ngIf="!detail.first" [class.d-flex]="detail.flex">
+    <h3 >{{detail.title | titlecase}}</h3>
+
+    <app-product-details *ngIf="detail.flex" [details]="detail.content"></app-product-details>
+  </div>
+  <app-product-details [details]="detail.content"></app-product-details>
+</div>
+
+<p *ngIf="detailsString" [innerHTML]="detailsString | titlecase"></p>

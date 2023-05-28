@@ -23,6 +23,7 @@ import {DomSanitizer} from "@angular/platform-browser";
 import {MatIconModule, MatIconRegistry} from "@angular/material/icon";
 import {FLAG} from "../content/icons";
 import {MatSlideToggleChange, MatSlideToggleModule} from "@angular/material/slide-toggle";
+import {Product} from "../../product/content/model";
 
 @Component({
   selector: 'app-cart',
@@ -97,7 +98,9 @@ export class CartComponent extends DestroyableComponent implements OnInit {
     this.cart$ = this.store.select(selectCart);
 
     this.cart$.pipe(takeUntil(this.destroyed$)).subscribe(res => {
-      this.keys = Object.keys(res.items);
+      if (res.items) {
+        this.keys = Object.keys(res.items);
+      }
     })
     // this.cart$ = this.store.select(selectCart);
     // this.store.dispatch(CartActions.getCart());
@@ -157,11 +160,15 @@ export class CartComponent extends DestroyableComponent implements OnInit {
     this.openForm = true;
   }
 
-  increaseItemQuantity(item: Item) {
-    this.store.dispatch(CartActions.increaseItemQuantity({item: item}))
+  increaseItemQuantity(item: Product) {
+    this.store.dispatch(CartActions.increaseItemQuantity({productId: item.id}))
   }
 
-  decreaseItemQuantity(item: Item) {
+  decreaseItemQuantity(item: Product) {
     this.store.dispatch(CartActions.decreaseItemQuantity({item: item}))
+  }
+
+  nagivateToProduct(id: number) {
+    this.router.navigate(['/product', id])
   }
 }

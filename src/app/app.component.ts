@@ -20,7 +20,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
     ngOnDestroy() {
     this.store.subscribe((st) => {
-      console.log(st)
       localStorage.setItem('state', JSON.stringify(st))
     })
     }

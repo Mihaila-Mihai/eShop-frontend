@@ -25,6 +25,7 @@ export const cartReducer = createReducer(
     shippingInsurance: {
       ...state.shippingInsurance,
       applied: applied,
+      price: 15
     },
     summary: {
       ...state.summary,
@@ -57,24 +58,26 @@ export const cartReducer = createReducer(
       ...address
     }
   })),
-  on(CartActions.increaseItemQuantity, (state, {item}) => ({
+  on(CartActions.increaseItemQuantity, (state, {productId}) => ({
     ...state,
     items: {
-      [item.id]: {
-        ...state.items[item.id],
-        quantity: state.items[item.id].quantity + 1
+      ...state.items,
+      [productId]: {
+        ...state.items[productId],
+        quantity: state.items[productId].quantity + 1
       }
     },
     summary: {
       ...state.summary,
       itemsCount: state.summary.itemsCount + 1,
-      totalPrice: state.summary.totalPrice + state.items[item.id].item.price,
-      productsTotalPrice: state.summary.productsTotalPrice + state.items[item.id].item.price,
+      totalPrice: state.summary.totalPrice + state.items[productId].item.price,
+      productsTotalPrice: state.summary.productsTotalPrice + state.items[productId].item.price,
     }
   })),
   on(CartActions.decreaseItemQuantity, (state, {item}) => ({
     ...state,
     items: {
+      ...state.items,
       [item.id]: {
         ...state.items[item.id],
         quantity: state.items[item.id].quantity - 1
@@ -85,6 +88,24 @@ export const cartReducer = createReducer(
       itemsCount: state.summary.itemsCount - 1,
       totalPrice: state.summary.totalPrice - state.items[item.id].item.price,
       productsTotalPrice: state.summary.productsTotalPrice - state.items[item.id].item.price,
+    }
+  })),
+  on(CartActions.proceedToAddToCart, (state, {product, cartSize}) => ({
+    ...state,
+    items: {
+      ...state.items,
+      [product.id]: {
+        quantity: 1,
+        item: {
+          ...product,
+          cartSize: cartSize
+        }
+      }
+    },
+    summary: {
+      itemsCount: 1,
+      totalPrice: state.summary.totalPrice + product.price,
+      productsTotalPrice: state.summary.productsTotalPrice + product.price
     }
   }))
 )

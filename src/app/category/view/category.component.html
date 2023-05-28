@@ -13,14 +13,18 @@
       <div class="filters">
         <app-filters [filterGroups]="response.filterGroups"></app-filters>
       </div>
-      <div class="row m-0 pt-11 align-content-start d-flex">
-        <div class="product-container" *ngFor="let product of response.products">
-          <app-product-card [product]="product"></app-product-card>
+      <ng-container *ngIf="keys.length; else noProducts">
+        <div *ngIf="prods$ | async as prods" class="row m-0 pt-11 flex-grow-1 align-content-start d-flex">
+          <div class="product-container" *ngFor="let product of keys">
+            <div *ngIf="getProduct(prods, product) as productFinal">
+              <app-product-card [product]="productFinal"></app-product-card>
+            </div>
+          </div>
+          <div *ngIf="keys.length" class="col-12 d-flex justify-content-center align-items-end">
+            <button mat-flat-button color="primary" class="rounded-0"> SHOW MORE </button>
+          </div>
         </div>
-        <div class="col-12 d-flex justify-content-center align-items-end">
-          <button mat-flat-button color="primary" class="rounded-0"> SHOW MORE </button>
-        </div>
-      </div>
+      </ng-container>
     </div>
   </div>
 </section>

@@ -1,3 +1,5 @@
+import {Product} from "../../product/content/model";
+
 export interface Cart {
   items: {
     [key: string]: CartItem
@@ -11,7 +13,7 @@ export interface Cart {
 }
 
 export interface CartItem {
-  item: Item;
+  item: Product;
   quantity: number;
 }
 

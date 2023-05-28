@@ -1,49 +1,68 @@
-<app-nav-bar></app-nav-bar>
 <section>
-  <div class="container mt-5 bg-white p-5" *ngIf="product$ | async as product">
-    <div class="row">
-      <div class="col-4">
-        <div class="image-container">
-          <img class="product-image"
-               src="https://lcdn.altex.ro/resize/media/catalog/product/i/p/2bd48d28d1c32adea0e55139a4e6434a/iphone_14_blue-1_d611427e.jpg"
-               alt="product-image">
-        </div>
+  <div *ngIf="product$ | async as product" class="container">
+    <div class="product-top row shadow-sm">
+      <div class="carousel col-9">
+        <swiper-container fmSwiper [config]="config" init="false" class="swiper-container w-full">
+          <swiper-slide class="w-[310px] sm:w-[450px] pb-6"
+                        *ngFor="let slider of product.carousel">
+            <img class="img-fluid" [src]="slider" alt="product-image">
+          </swiper-slide>
+        </swiper-container>
+
       </div>
 
-      <div class="col-5 pt-5">
-        <div class="details ps-5">
-          <div class="general-details">
-            <h3 class="bi-phone-fill text-secondary"> {{product?.details?.brand}} </h3>
-            <h2 class="mb-3">
-              {{product.displayName}}<span class="color-black"> | </span> {{product?.details?.storageCapacity}} <span class="color-black"> | </span> {{product?.details?.color}}
-            </h2>
-            <div class="d-flex mb-4">
-              <app-color-dot [selected]="true" [color]="product?.details?.color"></app-color-dot>
-              <app-color-dot class="ms-3" [color]="product?.details?.otherColors"></app-color-dot>
-            </div>
-            <div class="d-flex justify-content-between mb-5">
-              <span
-                [ngClass]="{'color-green bi-check': product.stock | stockPipe, 'color-red bi-x': !(product.stock | stockPipe)}">
-                {{product.stock | stockPipe }}
-              </span>
-              <span class="bi-calendar-check-fill text-secondary pe-3"> Livrare în 1-3 zile lucrătoare </span>
-            </div>
-            <div class="d-flex justify-content-center" *ngIf="product | rating as rating">
-              <span [class.me-1]="!last" class="bi-star-fill text-primary"
-                    *ngFor="let i of rating; let last=last"></span>
-              <span class="ms-1 bi-star-half text-primary"></span>
+      <div class="details col-3">
+        <div class="general-details">
+          <h4>{{product.name | uppercase}}</h4>
+          <p class="color">{{product.color}}</p>
+          <p class="price">{{product.price}} €</p>
+        </div>
+
+        <div class="variants">
+          <p class="variants__text">Available colors</p>
+          <div class="d-flex">
+            <div *ngFor="let variant of product.variante" class="image-container" [class.active]="product.id === +variant.id" routerLink="../{{variant.id}}">
+              <img class="img-fluid" [src]="variant.image" alt="variant-image">
             </div>
           </div>
         </div>
-      </div>
 
-      <div class="col-3 d-flex align-items-center">
-        <div *ngIf="user$ | async as user" class="price-zone d-flex flex-column justify-content-around">
-          <h1> {{product.price}}$ </h1>
-          <button *ngIf="user.customerId" mat-button class="mat-button text-bg-primary border-0" (click)="addToCart(product.productId)">Adauă în coș</button>
-          <button *ngIf="!user.customerId" mat-button class="mat-button text-bg-primary border-0" routerLink="/login">Autentifică-te</button>
+        <form class="buttons" [formGroup]="sizeForm" (ngSubmit)="onSubmit(product)">
+          <mat-form-field class="w-100" appearance="outline">
+            <mat-select placeholder="Choose size" formControlName="size">
+              <mat-option *ngFor="let size of product.sizes" [value]="size.id">
+                {{size.size}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="showError">You have to choose a size</mat-error>
+          </mat-form-field>
+
+          <button mat-flat-button color="primary" type="submit" class="w-100 rounded-0">
+            <mat-icon>shopping_cart</mat-icon>
+            <span>ADD TO CART</span>
+          </button>
+        </form>
+
+        <div class="texts">
+          <p>Trusted shop TRUSTED.com</p>
+          <p>3 - 5 days delivery with FAN Courier</p>
         </div>
       </div>
+    </div>
+
+    <div class="tabs">
+      <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="center" animationDuration="0ms">
+        <mat-tab *ngIf="product.details" label="Details">
+          <div class="container">
+            <app-product-details [details]="product.details"></app-product-details>
+          </div>
+        </mat-tab>
+        <mat-tab *ngIf="product.sizeGuide" label="Size guide">
+          <div class="container">
+
+          </div>
+        </mat-tab>
+      </mat-tab-group>
     </div>
   </div>
 </section>

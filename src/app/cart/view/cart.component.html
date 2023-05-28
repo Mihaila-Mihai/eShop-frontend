@@ -1,201 +1,210 @@
 <section class="wrapper">
   <div class="container" *ngIf="cart$ | async as cart">
-    <div class="row">
-      <div class="products-summary col-7">
-        <div class="products">
-          <div *ngFor="let product of keys" class="product d-flex align-items-center">
-            <ng-container *ngIf="cart.items[product] as prod">
-              <div class="image-container">
-                <img class="img-fluid" [src]="prod.item.image" alt="product-image">
-              </div>
-              <div class="product__details">
-                <h1>{{prod.item.displayName | uppercase}}</h1>
-                <p>Size: {{prod.item.size}}</p>
-                <p>Color: {{prod.item.color | titlecase}}</p>
-                <h1>{{prod.item.price}} €</h1>
-                <app-cart-item-quantity [quantity]="prod.quantity" (increaseQuantity)="increaseItemQuantity(prod.item)" (decreaseQuantity)="decreaseItemQuantity(prod.item)"></app-cart-item-quantity>
+    <ng-container *ngIf="keys.length; else emptyCart">
+      <div class="row">
+        <div class="products-summary col-7">
+          <div class="products">
+            <div *ngFor="let product of keys" class="product d-flex align-items-center">
+              <ng-container *ngIf="cart.items[product] as prod">
+                <div class="image-container" (click)="nagivateToProduct(prod.item.id)">
+                  <img class="img-fluid" [src]="prod.item.thumbnail" alt="product-image">
+                </div>
+                <div class="product__details">
+                  <h1>{{prod.item.name | uppercase}}</h1>
+                  <p>Size: {{prod.item.size}}</p>
+                  <p>Color: {{prod.item.color | titlecase}}</p>
+                  <h1>{{prod.item.price}} €</h1>
+                  <app-cart-item-quantity [quantity]="prod.quantity" (increaseQuantity)="increaseItemQuantity(prod.item)" (decreaseQuantity)="decreaseItemQuantity(prod.item)"></app-cart-item-quantity>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+          <div class="delivery-info">
+            <ng-container *ngIf="!openForm">
+              <div *ngIf="cart.deliveryAddress as address" (click)="modifyAddress(cart.deliveryAddress)" class="delivery-address container">
+                <div class="row">
+                  <div class="col-12">
+                    <p>Delivery address - <span>{{address.country | titlecase}}, {{address.district | titlecase}}, {{address.city | uppercase}}, {{address.street}}</span></p>
+                    <p>{{address.firstName | titlecase}} {{address.lastName | titlecase}}, {{address.email}}, {{address.phoneNumber}}</p>
+                  </div>
+                </div>
               </div>
             </ng-container>
-          </div>
-        </div>
-        <div class="delivery-info">
-          <ng-container *ngIf="!openForm">
-            <div *ngIf="cart.deliveryAddress as address" (click)="modifyAddress(cart.deliveryAddress)" class="delivery-address container">
+
+            <form *ngIf="!cart.deliveryAddress || openForm" class="container" [formGroup]="addressForm" (ngSubmit)="onSubmit()">
               <div class="row">
-                <div class="col-12">
-                  <p>Delivery address - <span>{{address.country | titlecase}}, {{address.district | titlecase}}, {{address.city | uppercase}}, {{address.street}}</span></p>
-                  <p>{{address.firstName | titlecase}} {{address.lastName | titlecase}}, {{address.email}}, {{address.phoneNumber}}</p>
+                <div class="col-6">
+                  <h4>First Name</h4>
+                  <mat-form-field appearance="outline">
+                    <input matInput formControlName="firstName" type="text">
+                    <mat-error *ngIf="firstName?.invalid">This field is required</mat-error>
+                  </mat-form-field>
+                </div>
+
+                <div class="col-6">
+                  <h4>Last Name</h4>
+                  <mat-form-field appearance="outline">
+                    <input matInput formControlName="lastName" type="text">
+                    <mat-error *ngIf="lastName?.invalid">This field is required</mat-error>
+                  </mat-form-field>
+                </div>
+
+                <div class="col-6">
+                  <h4>Email</h4>
+                  <mat-form-field appearance="outline">
+                    <input matInput formControlName="email" type="email">
+                    <mat-error *ngIf="email?.invalid">This field is required</mat-error>
+                  </mat-form-field>
+                </div>
+
+                <div class="col-6">
+                  <h4>Phone Number</h4>
+                  <mat-form-field appearance="outline">
+                    <input matInput formControlName="phoneNumber" type="tel">
+                    <mat-form-field class="prefix" matPrefix appearance="outline">
+                      <mat-select>
+                        <mat-option value="romania">
+                          <div class="d-flex">
+                            <mat-icon aria-hidden="false" svgIcon="flag"></mat-icon>
+                            <span>+40</span>
+                          </div>
+                        </mat-option>
+                      </mat-select>
+                      <mat-icon *ngIf="selected" matPrefix svgIcon="flag"></mat-icon>
+                    </mat-form-field>
+                    <mat-error *ngIf="phoneNumber?.invalid">This field is required</mat-error>
+                  </mat-form-field>
+                </div>
+
+                <div class="col-6">
+                  <h4>Country</h4>
+                  <mat-form-field appearance="outline">
+                    <input matInput formControlName="country" type="text">
+                    <mat-error *ngIf="country?.invalid">This field is required</mat-error>
+                  </mat-form-field>
+                </div>
+
+                <div class="col-6">
+                  <h4>District</h4>
+                  <mat-form-field appearance="outline">
+                    <input matInput formControlName="district" type="text">
+                    <mat-error *ngIf="district?.invalid">This field is required</mat-error>
+                  </mat-form-field>
+                </div>
+
+                <div class="col-6">
+                  <h4>City</h4>
+                  <mat-form-field appearance="outline">
+                    <input matInput formControlName="city" type="text">
+                    <mat-error *ngIf="city?.invalid">This field is required</mat-error>
+                  </mat-form-field>
+                </div>
+
+                <div class="col-6">
+                  <h4>Street and number</h4>
+                  <mat-form-field appearance="outline">
+                    <input matInput formControlName="streetAndNumber" type="text">
+                    <mat-error *ngIf="streetAndNumber?.invalid">This field is required</mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div class="row d-flex justify-content-center">
+                <button class="save-address rounded-0" mat-flat-button color="primary" type="submit">SAVE</button>
+              </div>
+
+            </form>
+
+            <div class="delivery-and-courier container">
+              <div class="row">
+                <div class="col-6">
+                  <h4>Choose Delivery</h4>
+                  <mat-form-field appearance="outline">
+                    <mat-select [value]="DeliveryMethod.THREE_TO_FIVE_DAYS">
+                      <mat-option [value]="DeliveryMethod.UNSPECIFIED">{{DeliveryMethod.UNSPECIFIED}}</mat-option>
+                      <mat-option
+                        [value]="DeliveryMethod.THREE_TO_FIVE_DAYS">{{DeliveryMethod.THREE_TO_FIVE_DAYS}}</mat-option>
+                      <mat-option
+                        [value]="DeliveryMethod.FOUR_TO_SEVEN_DAYS">{{DeliveryMethod.FOUR_TO_SEVEN_DAYS}}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="streetAndNumber?.invalid">This field is required</mat-error>
+                  </mat-form-field>
+                </div>
+
+                <div class="col-6">
+                  <h4>Choose Delivery</h4>
+                  <mat-form-field appearance="outline">
+                    <mat-select [value]="Courier.FAN_COURIER">
+                      <mat-option [value]="Courier.FEDEX">{{Courier.FEDEX}}</mat-option>
+                      <mat-option [value]="Courier.FAN_COURIER">{{Courier.FAN_COURIER}}</mat-option>
+                      <mat-option [value]="Courier.CARGUS">{{Courier.CARGUS}}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="streetAndNumber?.invalid">This field is required</mat-error>
+                  </mat-form-field>
                 </div>
               </div>
             </div>
-          </ng-container>
 
-          <form *ngIf="!cart.deliveryAddress || openForm" class="container" [formGroup]="addressForm" (ngSubmit)="onSubmit()">
-            <div class="row">
-              <div class="col-6">
-                <h4>First Name</h4>
-                <mat-form-field appearance="outline">
-                  <input matInput formControlName="firstName" type="text">
-                  <mat-error *ngIf="firstName?.invalid">This field is required</mat-error>
-                </mat-form-field>
-              </div>
-
-              <div class="col-6">
-                <h4>Last Name</h4>
-                <mat-form-field appearance="outline">
-                  <input matInput formControlName="lastName" type="text">
-                  <mat-error *ngIf="lastName?.invalid">This field is required</mat-error>
-                </mat-form-field>
-              </div>
-
-              <div class="col-6">
-                <h4>Email</h4>
-                <mat-form-field appearance="outline">
-                  <input matInput formControlName="email" type="email">
-                  <mat-error *ngIf="email?.invalid">This field is required</mat-error>
-                </mat-form-field>
-              </div>
-
-              <div class="col-6">
-                <h4>Phone Number</h4>
-                <mat-form-field appearance="outline">
-                  <input matInput formControlName="phoneNumber" type="tel">
-                  <mat-form-field class="prefix" matPrefix appearance="outline">
-                    <mat-select>
-                      <mat-option value="romania">
-                        <div class="d-flex">
-                          <mat-icon aria-hidden="false" svgIcon="flag"></mat-icon>
-                          <span>+40</span>
-                        </div>
-                      </mat-option>
-                    </mat-select>
-                    <mat-icon *ngIf="selected" matPrefix svgIcon="flag"></mat-icon>
-                  </mat-form-field>
-                  <mat-error *ngIf="phoneNumber?.invalid">This field is required</mat-error>
-                </mat-form-field>
-              </div>
-
-              <div class="col-6">
-                <h4>Country</h4>
-                <mat-form-field appearance="outline">
-                  <input matInput formControlName="country" type="text">
-                  <mat-error *ngIf="country?.invalid">This field is required</mat-error>
-                </mat-form-field>
-              </div>
-
-              <div class="col-6">
-                <h4>District</h4>
-                <mat-form-field appearance="outline">
-                  <input matInput formControlName="district" type="text">
-                  <mat-error *ngIf="district?.invalid">This field is required</mat-error>
-                </mat-form-field>
-              </div>
-
-              <div class="col-6">
-                <h4>City</h4>
-                <mat-form-field appearance="outline">
-                  <input matInput formControlName="city" type="text">
-                  <mat-error *ngIf="city?.invalid">This field is required</mat-error>
-                </mat-form-field>
-              </div>
-
-              <div class="col-6">
-                <h4>Street and number</h4>
-                <mat-form-field appearance="outline">
-                  <input matInput formControlName="streetAndNumber" type="text">
-                  <mat-error *ngIf="streetAndNumber?.invalid">This field is required</mat-error>
-                </mat-form-field>
-              </div>
-            </div>
-
-            <div class="row d-flex justify-content-center">
-              <button class="save-address rounded-0" mat-flat-button color="primary" type="submit">SAVE</button>
-            </div>
-
-          </form>
-
-          <div class="delivery-and-courier container">
-            <div class="row">
-              <div class="col-6">
-                <h4>Choose Delivery</h4>
-                <mat-form-field appearance="outline">
-                  <mat-select [value]="DeliveryMethod.THREE_TO_FIVE_DAYS">
-                    <mat-option [value]="DeliveryMethod.UNSPECIFIED">{{DeliveryMethod.UNSPECIFIED}}</mat-option>
-                    <mat-option
-                      [value]="DeliveryMethod.THREE_TO_FIVE_DAYS">{{DeliveryMethod.THREE_TO_FIVE_DAYS}}</mat-option>
-                    <mat-option
-                      [value]="DeliveryMethod.FOUR_TO_SEVEN_DAYS">{{DeliveryMethod.FOUR_TO_SEVEN_DAYS}}</mat-option>
-                  </mat-select>
-                  <mat-error *ngIf="streetAndNumber?.invalid">This field is required</mat-error>
-                </mat-form-field>
-              </div>
-
-              <div class="col-6">
-                <h4>Choose Delivery</h4>
-                <mat-form-field appearance="outline">
-                  <mat-select [value]="Courier.FAN_COURIER">
-                    <mat-option [value]="Courier.FEDEX">{{Courier.FEDEX}}</mat-option>
-                    <mat-option [value]="Courier.FAN_COURIER">{{Courier.FAN_COURIER}}</mat-option>
-                    <mat-option [value]="Courier.CARGUS">{{Courier.CARGUS}}</mat-option>
-                  </mat-select>
-                  <mat-error *ngIf="streetAndNumber?.invalid">This field is required</mat-error>
-                </mat-form-field>
+            <div class="shipping-insurance container">
+              <div class="row">
+                <div class="col-12 d-flex justify-content-between">
+                  <h4>Shipping Insurance</h4>
+                  <mat-slide-toggle color="primary" (change)="insuranceChange($event)"></mat-slide-toggle>
+                </div>
               </div>
             </div>
           </div>
+        </div>
+        <div class="cart-summary col-5">
+          <div class="voucher d-flex justify-content-between align-items-center" [formGroup]="voucherForm">
+            <mat-form-field class="voucher__input" appearance="outline">
+              <input matInput type="text" placeholder="Enter promo code" formControlName="voucher">
+            </mat-form-field>
 
-          <div class="shipping-insurance container">
-            <div class="row">
-              <div class="col-12 d-flex justify-content-between">
-                <h4>Shipping Insurance</h4>
-                <mat-slide-toggle color="primary" (change)="insuranceChange($event)"></mat-slide-toggle>
-              </div>
+            <button *ngIf="!cart.voucher" (click)="applyVoucher()" class="apply-voucher rounded-0" type="button"
+                    mat-flat-button color="primary">APPLY
+            </button>
+            <button *ngIf="cart.voucher" (click)="removeVoucher()" class="apply-voucher rounded-0" type="button"
+                    mat-flat-button color="primary">REMOVE
+            </button>
+          </div>
+          <div class="lines">
+            <h4 class="m-0">Shopping Summary</h4>
+            <div class="d-flex justify-content-between">
+              <p class="col-6">Total price ({{cart.summary?.itemsCount}} items)</p>
+              <span class="col-6 text-center">{{cart.summary?.productsTotalPrice}} €</span>
+            </div>
+            <div *ngIf="cart.shippingInsurance?.applied" class="d-flex justify-content-between">
+              <p class="col-6">Shipping Insurance</p>
+              <span class="col-6 text-center">{{cart.shippingInsurance?.price}} €</span>
+            </div>
+            <div *ngIf="cart.voucher" class="promo-code d-flex justify-content-between">
+              <p class="col-6">PROMO CODE</p>
+              <span class="col-6 text-center">-{{cart.voucher.value}} €</span>
+            </div>
+          </div>
+
+          <div class="total">
+            <div class="cart-total d-flex justify-content-between">
+              <p class="col-6 m-0">Total</p>
+              <span class="col-6 text-center">{{cart.summary?.totalPrice}} €</span>
+            </div>
+          </div>
+
+          <div class="payment">
+            <div class="d-flex justify-content-center">
+              <button class="payment__button rounded-0 col-12" mat-flat-button color="primary">CHECKOUT</button>
             </div>
           </div>
         </div>
       </div>
-      <div class="cart-summary col-5">
-        <div class="voucher d-flex justify-content-between align-items-center" [formGroup]="voucherForm">
-          <mat-form-field class="voucher__input" appearance="outline">
-            <input matInput type="text" placeholder="Enter promo code" formControlName="voucher">
-          </mat-form-field>
+    </ng-container>
 
-          <button *ngIf="!cart.voucher" (click)="applyVoucher()" class="apply-voucher rounded-0" type="button"
-                  mat-flat-button color="primary">APPLY
-          </button>
-          <button *ngIf="cart.voucher" (click)="removeVoucher()" class="apply-voucher rounded-0" type="button"
-                  mat-flat-button color="primary">REMOVE
-          </button>
-        </div>
-        <div class="lines">
-          <h4 class="m-0">Shopping Summary</h4>
-          <div class="d-flex justify-content-between">
-            <p class="col-6">Total price ({{cart.summary.itemsCount}} items)</p>
-            <span class="col-6 text-center">{{cart.summary.productsTotalPrice}} €</span>
-          </div>
-          <div *ngIf="cart.shippingInsurance.applied" class="d-flex justify-content-between">
-            <p class="col-6">Shipping Insurance</p>
-            <span class="col-6 text-center">{{cart.shippingInsurance.price}} €</span>
-          </div>
-          <div *ngIf="cart.voucher" class="promo-code d-flex justify-content-between">
-            <p class="col-6">PROMO CODE</p>
-            <span class="col-6 text-center">-{{cart.voucher.value}} €</span>
-          </div>
-        </div>
-
-        <div class="total">
-          <div class="cart-total d-flex justify-content-between">
-            <p class="col-6 m-0">Total</p>
-            <span class="col-6 text-center">{{cart.summary.totalPrice}} €</span>
-          </div>
-        </div>
-
-        <div class="payment">
-          <div class="d-flex justify-content-center">
-            <button class="payment__button rounded-0 col-12" mat-flat-button color="primary">CHECKOUT</button>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
 </section>
+
+<ng-template #emptyCart>
+  <div class="empty-cart d-flex justify-content-center">
+    <h1>Your cart is empty</h1>
+  </div>
+</ng-template>

@@ -3,12 +3,12 @@
     <div>
       <div class="product-image-container p-0 col-12 d-flex justify-content-center mb-2">
         <img class="product-image"
-             [src]="product?.image"
+             [src]="product?.thumbnail"
              alt="product-image">
       </div>
     </div>
     <div>
-      <span class="display-name text-center p-0">{{product?.diaplayName}}</span>
+      <span class="display-name text-center p-0">{{product?.name | titlecase}}</span>
     </div>
     <div class="mb-2">
       <span class="price text-center">{{product?.price}}€</span>

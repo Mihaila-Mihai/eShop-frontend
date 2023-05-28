@@ -29,6 +29,8 @@ form, .delivery-address {
   width: 180px;
   height: 180px;
   margin-right: 34.5px;
+  cursor: pointer;
+  margin-bottom: 5px;
 }
 
 .product {
@@ -156,4 +158,8 @@ form, .delivery-address {
     height: 39px;
     max-width: 300px;
   }
+}
+
+.empty-cart {
+  min-height: 60vh;
 }

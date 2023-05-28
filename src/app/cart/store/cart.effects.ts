@@ -10,6 +10,8 @@ import {Router} from "@angular/router";
 import {selectCart} from "./cart.selectors";
 import * as AppActions from "../../store/store-files/app-store.actions";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {selectProductById} from "../../product/store/product.selector";
+import {increaseItemQuantity, proceedToAddToCart} from "./cart.actions";
 
 
 @Injectable()
@@ -19,11 +21,13 @@ export class CartEffects {
 
   public addProductToCart$ = createEffect(() => this.actions$.pipe(
     ofType(CartActions.addProductToCart),
-    concatLatestFrom(() => this.store.select(selectCustomer)),
-    switchMap(([action, customer]) => {
-      return this.cartService.addProduct(customer.customerId!!, action.productId).pipe(map(() => {
-        return CartActions.addProductToCartSuccess();
-      }));
+    concatLatestFrom((action) => [this.store.select(selectCart), this.store.select(selectProductById(action.productId))]),
+    switchMap(([action, cart, product]) => {
+      this.router.navigate(['/cos']);
+      if (cart.items[action.productId]) {
+        return of(increaseItemQuantity({productId: action.productId}))
+      }
+      return of(proceedToAddToCart({product: product!!, cartSize: action.cartSize}))
     })
   ));
 
