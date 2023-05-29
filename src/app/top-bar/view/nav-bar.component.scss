@@ -8,11 +8,55 @@ section {
 .container {
   height: 6.25rem;
   max-width: 1400px;
+}
 
-  &__logo {
-    color: var(--white);
-    h2 {
-      font-size: 32px;
-    }
-  }
+.container__logo {
+  color: var(--white);
+}
+
+.container__logo h2 {
+  font-size: 32px;
+}
+
+.header-icons {
+  display: flex;
+  align-items: center;
+}
+
+.profile-icon,
+.cart-icon {
+  cursor: pointer;
+  font-size: 20px;
+  padding: 5px;
+  color: var(--white);
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  display: none;
+  background-color: #fff;
+  padding: 10px;
+}
+
+.show {
+  display: block;
+}
+
+.login-button {
+  margin-top: 10px;
+  background-color: var(--black);
+  color: var(--white);
+  padding: 8px 16px;
+}
+
+.register-link {
+  margin-top: 10px;
+  color: var(--black);
+  font-size: 14px;
+}
+
+.register-link-text {
+  text-decoration: underline;
 }

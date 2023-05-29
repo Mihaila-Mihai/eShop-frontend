@@ -34,6 +34,7 @@ import {Product} from "../../product/content/model";
 })
 export class CartComponent extends DestroyableComponent implements OnInit {
 
+
   public selected = true;
   public DeliveryMethod = DeliveryMethod;
   public courier = Courier;
@@ -105,7 +106,8 @@ export class CartComponent extends DestroyableComponent implements OnInit {
     // this.cart$ = this.store.select(selectCart);
     // this.store.dispatch(CartActions.getCart());
   }
-
+  navigateTotk(): void {
+    this.router.navigate(['/thank-you']);}
   removeVoucher() {
     this.store.dispatch(CartActions.removeVoucher());
     this.voucherForm.patchValue({

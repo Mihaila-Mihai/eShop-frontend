@@ -22,6 +22,10 @@ import {CategoryEffects} from "./category/store/category.effects";
 import {OrderEffects} from "./orders/store/order.effects";
 import {FooterComponent} from "./footer/footer.component";
 import {register} from 'swiper/element/bundle';
+import { MatIconModule } from '@angular/material/icon';
+import {MatMenuModule, MatMenuTrigger} from '@angular/material/menu';
+
+
 
 register();
 
@@ -43,6 +47,9 @@ register();
     EffectsModule.forRoot([AppStoreEffects, CartEffects, VoucherEffects, ProductEffects, LoginEffects, RegisterEffects, CategoryEffects, OrderEffects]),
     StoreDevtoolsModule.instrument({maxAge: 25, logOnly: !isDevMode()}),
     FooterComponent,
+    MatIconModule,
+    MatMenuModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent]
